@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Grappling Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0c10;
+  --surface: #13161e;
+  --surface2: #1a1e28;
+  --surface3: #222736;
+  --border: #252b3a;
+  --accent: #e8ff47;
+  --accent2: #ff6b35;
+  --accent3: #47c8ff;
+  --purple: #a78bfa;
+  --green: #34d399;
+  --text: #dde1ed;
+  --text-muted: #606880;
+  --text-dim: #8890a8;
+  --learned: #34d399;
+  --drilling: #fbbf24;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  overscroll-behavior: none;
+}
+
+/* HEADER */
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 20px 12px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  letter-spacing: 3px;
+  color: var(--accent);
+  line-height: 1;
+  flex: 1;
+}
+
+.stats-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.progress-bar-wrap {
+  flex: 1;
+  height: 4px;
+  background: var(--surface3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--green));
+  border-radius: 2px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+
+/* SEARCH */
+.search-wrap {
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 14px 9px 36px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  outline: none;
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus { border-color: var(--accent); }
+.search-input::placeholder { color: var(--text-muted); }
+
+.search-icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* FILTER TABS */
+.filter-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 10px 20px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.filter-tabs::-webkit-scrollbar { display: none; }
+
+.tab {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 2px;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+
+.tab:hover { border-color: var(--accent); color: var(--accent); }
+.tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 500; }
+
+/* SECTIONS */
+.sections { padding: 16px 20px 80px; display: grid; gap: 12px; }
+
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.section-header {
+  padding: 14px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.section-header:hover { background: var(--surface2); }
+
+.section-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 2px;
+  flex: 1;
+}
+
+.section-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.section-chevron {
+  color: var(--text-muted);
+  font-size: 12px;
+  transition: transform 0.2s;
+}
+
+.section.collapsed .section-chevron { transform: rotate(-90deg); }
+.section.collapsed .section-body { display: none; }
+
+.section-body { padding: 4px 0 12px; }
+
+/* TREE */
+.tree { list-style: none; }
+
+.tree-item { position: relative; }
+
+.node {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 3px 16px 3px 0;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background 0.1s;
+  position: relative;
+}
+
+.node:hover { background: var(--surface2); }
+
+.node-indent {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.node-toggle {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: all 0.15s;
+}
+
+.node-toggle:hover { border-color: var(--accent3); color: var(--accent3); }
+.node-toggle.leaf { border-color: transparent; color: var(--border); font-size: 7px; }
+
+.node-content { flex: 1; display: flex; align-items: flex-start; gap: 6px; min-width: 0; padding-top: 1px; }
+
+.node-label {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.45;
+  flex: 1;
+}
+
+.node-label.has-video { color: var(--accent3); }
+
+.node-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.btn-video {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--accent2);
+  text-decoration: none;
+  border: 1px solid var(--accent2);
+  padding: 2px 7px;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.btn-video:hover { background: var(--accent2); color: #000; }
+
+.btn-note {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--text-muted);
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.btn-note:hover { border-color: var(--purple); color: var(--purple); }
+.btn-note.has-note { border-color: var(--purple); color: var(--purple); background: rgba(167,139,250,0.1); }
+
+/* Progress pill */
+.progress-pill {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.progress-pill:hover { border-color: var(--text-dim); color: var(--text-dim); }
+.progress-pill.drilling { border-color: var(--drilling); color: var(--drilling); background: rgba(251,191,36,0.1); }
+.progress-pill.learned { border-color: var(--learned); color: var(--learned); background: rgba(52,211,153,0.1); }
+
+/* Children */
+.children {
+  list-style: none;
+  border-left: 1px solid var(--border);
+  margin-left: 25px;
+}
+
+.tree-item.collapsed > .children { display: none; }
+.tree-item.collapsed > .node .node-toggle { }
+
+/* NOTE PANEL */
+.note-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 2px solid var(--purple);
+  z-index: 300;
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.note-panel.open { transform: translateY(0); }
+
+.note-panel-header {
+  padding: 14px 16px 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.note-panel-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 1px;
+  color: var(--purple);
+  flex: 1;
+}
+
+.note-panel-close {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 16px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+
+.note-panel-close:hover { border-color: var(--accent2); color: var(--accent2); }
+
+.note-textarea {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 14px 16px;
+  resize: none;
+  outline: none;
+  overflow-y: auto;
+  min-height: 120px;
+}
+
+.note-textarea::placeholder { color: var(--text-muted); font-style: italic; }
+
+.note-panel-footer {
+  padding: 10px 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.note-save-btn {
+  background: var(--purple);
+  color: #000;
+  border: none;
+  padding: 8px 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  font-weight: 500;
+  transition: opacity 0.15s;
+}
+
+.note-save-btn:hover { opacity: 0.85; }
+
+.note-clear-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+}
+
+.note-clear-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+
+/* OVERLAY */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 250;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.overlay.active { opacity: 1; pointer-events: all; }
+
+/* Search highlight */
+.highlight > .node > .node-content > .node-label {
+  background: rgba(232,255,71,0.15);
+  color: var(--accent);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+.hidden { display: none !important; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  h1 { font-size: 28px; }
+  .sections { padding: 12px 12px 80px; }
+  .filter-tabs { padding: 10px 12px 0; }
+  header { padding: 12px 12px 10px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <h1>Grappling</h1>
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num" id="learnedCount">0</div>
+        <div class="stat-label">Learned</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" id="totalCount">0</div>
+        <div class="stat-label">Total</div>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+    </div>
+  </div>
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input class="search-input" type="text" placeholder="Search techniques..." id="searchInput">
+  </div>
+</header>
+
+<div class="filter-tabs">
+  <button class="tab active" data-filter="all">All</button>
+  <button class="tab" data-filter="video">Has Video</button>
+  <button class="tab" data-filter="drilling">Drilling</button>
+  <button class="tab" data-filter="learned">Learned</button>
+</div>
+<div style="padding: 6px 20px 0;">
+  <button class="tab" id="collapseAllBtn" style="padding: 3px 10px; font-size: 9px;">Collapse All</button>
+</div>
+
+<div class="sections" id="sections"></div>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="note-panel" id="notePanel">
+  <div class="note-panel-header">
+    <div class="note-panel-title" id="notePanelTitle">Notes</div>
+    <button class="note-panel-close" id="notePanelClose">✕</button>
+  </div>
+  <textarea class="note-textarea" id="noteTextarea" placeholder="Add your notes, cues, details, game plan..."></textarea>
+  <div class="note-panel-footer">
+    <button class="note-clear-btn" id="noteClearBtn">Clear</button>
+    <button class="note-save-btn" id="noteSaveBtn">Save Note</button>
+  </div>
+</div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+const SECTIONS = [
+  {
+    title: "Wrestling for BJJ",
+    color: "#e8ff47",
+    nodes: [
+      {t:"Collar Tie", c:[
+        {t:"Entries", c:[
+          {t:"Outside tie", v:"https://youtu.be/Ye-Jvn023XI"},
+          {t:"Collar tie", v:"https://youtu.be/Kf0wQ00FPBg"}
+        ]},
+        {t:"Offence", c:[
+          {t:"Brush by", c:[
+            {t:"Disengaging", v:"https://youtu.be/oejTa6J72gE"},
+            {t:"Rear body lock", v:"https://youtu.be/oXuG3DJBMEE"},
+            {t:"Snatch head inside single", v:"https://youtu.be/B6jTl90lucM"},
+            {t:"Snatch head outside single", v:"https://youtu.be/WtUX-OiWYkU"}
+          ]},
+          {t:"Throw by", c:[
+            {t:"Head to head", v:"https://youtu.be/1wOwMfPHMDs"},
+            {t:"Head to shoulder", v:"https://youtu.be/m42WTwg3Feo"},
+            {t:"Outside tie", v:"https://youtu.be/ZLbj39rn6pU"}
+          ]},
+          {t:"Snap downs", c:[
+            {t:"Collar Tie and Inside Tie Snap Down", v:"https://youtu.be/WZ--OY1yQXU"},
+            {t:"Overtie snap", v:"https://youtu.be/NlIBlkV5PVY"},
+            {t:"Brush by snap", v:"https://youtu.be/QE8PS6puob0"}
+          ]},
+          {t:"2 on 1", c:[
+            {t:"Climb to back", v:"https://youtu.be/r0-5x2mBL84"},
+            {t:"Snatch single", v:"https://youtu.be/cdQakEraYKE"},
+            {t:"Ankle pick", v:"https://youtu.be/6RapDAy2HQQ"},
+            {t:"Front headlock", v:"https://youtu.be/DzxwkbNuUBw"},
+            {t:"Defence: Framing on head"},
+            {t:"Defence: Pulling far elbow → Underhook"}
+          ]}
+        ]}
+      ]},
+      {t:"Hand Fighting Positions", c:[
+        {t:"Inside Tie", c:[{t:"Inside Tie to Sweep Single"}]},
+        {t:"Over/Under", c:[
+          {t:"Arm drag"},{t:"Sweep single"},{t:"Snatch single"},
+          {t:"Inside leg trip"},{t:"Inside leg trip to scissor takedown"},{t:"Knee tap"}
+        ]},
+        {t:"Underhook", c:[
+          {t:"Head inside double"},{t:"Run the pipe"},{t:"Foot lift"},
+          {t:"Side bodylock", c:[{t:"Front side uchimata"},{t:"Lift and dump"}]},
+          {t:"Rear bodylock throwby", c:[
+            {t:"Mat return"},
+            {t:"Crab ride entry", c:[{t:"Back take"},{t:"Knee staple"}]},
+            {t:"Lift and dump"}
+          ]},
+          {t:"Snatch head inside Single"},{t:"Knee tap"},{t:"Front headlock"},
+          {t:"Snatch head outside single"},{t:"Head inside single"},{t:"Head outside single"}
+        ]},
+        {t:"Outside tie", c:[
+          {t:"Knee Pull Sweep Single"},{t:"Throw by"},{t:"Collar tie throw by"},
+          {t:"Head inside single"},{t:"Double leg"},{t:"Brush by"},{t:"2 on 1"}
+        ]}
+      ]},
+      {t:"Rear Bodylock", c:[
+        {t:"Turtle Rear Bodylock", c:[
+          {t:"Spiral ride", c:[
+            {t:"Near side hook → Far side roll → Hip pinch → Back take"},
+            {t:"Far side hook → Second hook → Back take"},
+            {t:"Opponent rolls far side → Head arm choke"}
+          ]},
+          {t:"Seatbelt", c:[
+            {t:"Rolling backtake → Seated rear bodylock → Back take"},
+            {t:"Hooks in → Backtake"}
+          ]},
+          {t:"Body lock", c:[
+            {t:"Knee wedge hook in → Far side roll → Hip pinch → Backtake"},
+            {t:"Crab hook → Seated rear body lock → Back take"}
+          ]}
+        ]},
+        {t:"Tripod Rear Bodylock", c:[
+          {t:"Throwing hooks in", c:[
+            {t:"Weight on hands", c:[
+              {t:"Half nelson → Backtake"},
+              {t:"2 on 1 → Back take"}
+            ]},
+            {t:"Weight on feet", c:[
+              {t:"Rear naked choke"},
+              {t:"Underhooking knee → Suloev stretch"},
+              {t:"Half nelson → Shoulder stretch"}
+            ]}
+          ]},
+          {t:"Elbow in thigh takedown → Turtle Rear bodylock"},
+          {t:"Feet behind heels → Crab ride"}
+        ]},
+        {t:"Standing Rear Bodylock", c:[
+          {t:"Defence: Grip Breaks", c:[{t:"Grip Break 1"},{t:"Grip Break 2"},{t:"Grip Break 3"}]},
+          {t:"Defence: Counters", c:[
+            {t:"Uchi Mata Counter Front Headlock"},{t:"Uchi Mata Counter Ankle Pick"},
+            {t:"Uchi Mata Throw Counter"},{t:"Chin Push Counter to Front Bodylock"},
+            {t:"Inside Leg Trip Counter to Front Bodylock"},{t:"Lift and Sweep Counter to Side Bodylock"}
+          ]},
+          {t:"Offence", c:[
+            {t:"Mat return"},{t:"Front Side Uchi Mata from Side Bodylock"},
+            {t:"Lower Back Crunch from Front Bodylock"},{t:"Crab Ride Entry"}
+          ]}
+        ]}
+      ]},
+      {t:"Head Inside Single", c:[
+        {t:"Offence", c:[
+          {t:"Foot Lift Takedown"},
+          {t:"Shin Whizzer", c:[
+            {t:"Limp Arm Counter to Shin Whizzer"},{t:"Running the Pipe Counter"},
+            {t:"Head Inside Double Leg Counter"},{t:"Collar Tie Ankle Tap Counter"}
+          ]},
+          {t:"Tripod Defence", c:[{t:"Rear Body Lock counter"}]},
+          {t:"Near Side Block", c:[{t:"Knock Over Rear Bodylock counter"}]},
+          {t:"Iranian", c:[{t:"Iranian counter to Sprawl"},{t:"Iranian to Rear Bodylock counter"}]},
+          {t:"Sprawl", c:[
+            {t:"Shelfing the Leg counter"},{t:"Shelfing leg through Grounded Shin Whizzer"},
+            {t:"Cut Back Single Leg counter"}
+          ]}
+        ]},
+        {t:"Defence", c:[
+          {t:"Near Side Block", c:[{t:"Tripod Defence Near Side Block"},{t:"Bail out"}]},
+          {t:"Shin Whizzer", c:[{t:"Shin Whizzer Front Headlock Counter"},{t:"Grip Break Defence"}]},
+          {t:"Tripod Defence", c:[{t:"Inside Switch Tripod Defence"},{t:"Bail out"}]},
+          {t:"Iranian", c:[{t:"Near Side Block counter to Iranian"},{t:"Bail out"}]},
+          {t:"Sprawl", c:[{t:"Grounded Shin Whizzer"},{t:"How to Sprawl"},{t:"Sprawl to Belly Whizzer"}]}
+        ]}
+      ]},
+      {t:"Head Outside Single", c:[
+        {t:"Running the pipe"},
+        {t:"Double leg", c:[
+          {t:"Hands locked"},
+          {t:"Split grip", c:[{t:"Complete double"},{t:"Cut to rear body lock → tripod breakdown"}]}
+        ]},
+        {t:"Crackdown"}
+      ]},
+      {t:"Double Leg"},
+      {t:"Grounded 50/50"}
+    ]
+  },
+  {
+    title: "Guard Passing",
+    color: "#ff6b35",
+    nodes: [
+      {t:"Outside Camping", c:[
+        {t:"J Point", c:[
+          {t:"Entries", c:[
+            {t:"Seated guard: Hip post", v:"https://youtu.be/5-jZLnq4Ak8"},
+            {t:"Seated guard: Collar tie", v:"https://youtu.be/ZbmUQD0lIAs"},
+            {t:"Supine guard", v:"https://youtu.be/8toccngMCZg"}
+          ]},
+          {t:"Maintaining Control Points", v:"https://youtu.be/YxIJBbf55a0", c:[
+            {t:"Shin pin"},{t:"Thigh grip"},{t:"Head positioning"},
+            {t:"Forearm hip control"},{t:"Calf grip"},{t:"Foot grip"},{t:"Hip hinge"}
+          ]},
+          {t:"Passes", c:[
+            {t:"Toreando → Side control", v:"https://youtu.be/UZt7aEEds7w"},
+            {t:"Leg drag → Side control", v:"https://youtu.be/OYfI4G1T4Lg"},
+            {t:"North South → Side control", v:"https://youtu.be/Vy-66UJAySQ"},
+            {t:"Sprawl → Side control", v:"https://youtu.be/UtSsoK-66Mc"}
+          ]},
+          {t:"Countering Defences", c:[
+            {t:"Lasso", c:[
+              {t:"Bicep curl", v:"https://youtu.be/F4t5ba7q7Gk"},
+              {t:"Bicep ride", v:"https://youtu.be/j1Wscyup89w"},
+              {t:"C grip", v:"https://youtu.be/U2Vy92unNgE"},
+              {t:"Forearm pressure"},
+              {t:"Back swim → North South", v:"https://youtu.be/kQ7gqbS78cI"},
+              {t:"Stripping lasso → J point", v:"https://youtu.be/GdsHijqF0nE"}
+            ]},
+            {t:"Deep Lasso → North South", v:"https://youtu.be/K8s4BNprDLM"},
+            {t:"Reverse de la riva → J point", v:"https://youtu.be/QkHNNI6OBJQ"},
+            {t:"K Guard → Side control", v:"https://youtu.be/4hngRqXbdd0"},
+            {t:"Arm Frames", v:"https://youtu.be/_i4wJYP-ufY", c:[
+              {t:"Clearing 2 frames on left shoulder", v:"https://youtu.be/TiPaf5kfSVQ"},
+              {t:"Clearing 2 frames on right shoulder", v:"https://youtu.be/fIQfWXRHFOc"},
+              {t:"Clearing frames on each shoulder", v:"https://youtu.be/ImHVwTUWOp0"},
+              {t:"Head frame", v:"https://youtu.be/MRFVb4JBE9c"}
+            ]},
+            {t:"X guard", v:"https://youtu.be/kOeZo7YOtEg"},
+            {t:"Bringing far leg under arm", c:[
+              {t:"Good elbow positioning", v:"https://youtu.be/cf0JTjYqLaY"},
+              {t:"Smash pass → Side control", v:"https://youtu.be/b030JiTk6n0"}
+            ]},
+            {t:"Foot shoulder frame → J point", v:"https://youtu.be/bTdaK2nOD8M"},
+            {t:"Far shoulder clamp → J point", v:"https://youtu.be/gxeob3A3OzU"},
+            {t:"Elevated hips → Side control", v:"https://youtu.be/zAcqkPKfD6k"}
+          ]}
+        ]}
+      ]},
+      {t:"Supine Guard Passing", c:[
+        {t:"Entries", c:[
+          {t:"J point"},
+          {t:"Bullfighter", v:"https://youtu.be/WuqJwZVi1fQ"}
+        ]},
+        {t:"Control Points", v:"https://youtu.be/AxZjQX_zAmg", c:[
+          {t:"Collar tie"},{t:"Ankle grips"},{t:"Drop to knees"},{t:"Tricep grip"},{t:"Overback"}
+        ]},
+        {t:"Passes", c:[
+          {t:"Toreando", v:"https://youtu.be/jfVGYxM8DWM"},
+          {t:"Head in pocket", v:"https://youtu.be/BTDNCkCDVZk"},
+          {t:"Cross control", v:"https://youtu.be/zWjF2k9YpdQ"},
+          {t:"Scoop grip", v:"https://youtu.be/fuwhG1nlgdE"}
+        ]},
+        {t:"Countering Defences", c:[
+          {t:"Coil", c:[
+            {t:"Duck under pass", v:"https://youtu.be/_K7PVS2V5J0"},
+            {t:"Clearing early coils", v:"https://youtu.be/-Q0Az-RU2dI"},
+            {t:"Back step", v:"https://youtu.be/nDmdipl_ukQ"}
+          ]},
+          {t:"Frames", c:[
+            {t:"Shimmying body", v:"https://youtu.be/ufTLXamMOok"},
+            {t:"Cross control pass", v:"https://youtu.be/Esi57ptb-gY"},
+            {t:"Head in pocket pass", v:"https://youtu.be/sJEs3bd-fSc"}
+          ]},
+          {t:"K Guard: Single under pass", v:"https://youtu.be/AwH7GoN-0YE"},
+          {t:"Knees to chest: Scoop grip", v:"https://youtu.be/WMT0Cz-PBo0"},
+          {t:"Knees to chest: Cross control", v:"https://youtu.be/9xvQoSS68SE"},
+          {t:"Inverting: Diving crab ride"},
+          {t:"Inverting: Head in belly"}
+        ]}
+      ]},
+      {t:"Seated Guard Passing", c:[
+        {t:"Cross Grip", c:[{t:"Collar tie → Overback"},{t:"Collar tie → North south"}]},
+        {t:"High Tripod", c:[
+          {t:"Entries"},{t:"Arm and head position"},
+          {t:"Passes", c:[{t:"Shoving leg down"},{t:"Hip switch"},{t:"Knee cut"},{t:"Stepping over leg"}]}
+        ]},
+        {t:"Bodylock", c:[
+          {t:"Positioning", c:[
+            {t:"One arm deep one shallow"},{t:"Tricep pressure"},{t:"Head centered"},
+            {t:"Hips to ass"},{t:"Pulling in"}
+          ]},
+          {t:"Entries", c:[{t:"Flat back"},{t:"Seated guard"}]},
+          {t:"Passes", c:[
+            {t:"Two butterfly hooks → Step over to mount"},
+            {t:"Two butterfly hooks → Two legs on one shin → Side control"},
+            {t:"Two butterfly hooks → Step over to half butterfly"},
+            {t:"Half butterfly → Back step → Side control"},
+            {t:"Half butterfly → Smash pass → Side control"},
+            {t:"Half guard → Head post windshield wiper"},
+            {t:"Half guard → Climb to underhooks"}
+          ]},
+          {t:"Dealing with Defences", c:[
+            {t:"Slipping out to closed guard → Pinning feet"},
+            {t:"High knee"},
+            {t:"Omoplata → Gogopalata → Bringing head to pummeling leg side"},
+            {t:"Framing head → Stepping over opposite side"},
+            {t:"Framing knees → Using head to create room"},
+            {t:"Pushing bodylock down → Tight bodylock"},
+            {t:"Underhooking arm → Trap arm / Shoulder crunch defence"}
+          ]}
+        ]}
+      ]},
+      {t:"Shin Pin", c:[
+        {t:"J point"},{t:"Rau drag"},
+        {t:"Arm weave", c:[
+          {t:"Overback → North South"},
+          {t:"Reverse collar tie → North south passing"}
+        ]}
+      ]},
+      {t:"Guard Positions - Passing Side", c:[
+        {t:"Reverse de la riva", c:[{t:"Kiss of the dragon → Crab ride"},{t:"Kiss of the dragon → Wrestle up tripod"}]},
+        {t:"De la riva", c:[{t:"Baby bolo → Crab ride"},{t:"Baby bolo → Wrestle up tripod"}]},
+        {t:"K guard", c:[{t:"Hips low → North south passing"},{t:"Hips low → Underhook mount"},{t:"Crab shin wedge → Crab ride"}]},
+        {t:"Single leg X: Standing", c:[{t:"Strip foot push knee through step leg"},{t:"Strip leg back step"}]},
+        {t:"Single leg X: Seated", c:[{t:"Strip foot on hip hop over push pull out"}]},
+        {t:"X guard", c:[{t:"Control foot clear other back step to pass"},{t:"If wrestle up inside switch tripod"}]},
+        {t:"Outside ashi", c:[
+          {t:"Control knee line, feet off hips → Smash pass"},
+          {t:"Knee wedge berimbolo → Back take"},
+          {t:"Knee wedge berimbolo → Reverse half → Twister hook → Back take"},
+          {t:"Knee wedge berimbolo → Reverse half → Chair sit → Back take"}
+        ]},
+        {t:"Butterfly ashi", c:[{t:"Clear foot back step"},{t:"Spin out → Escape"},{t:"Spin out → Crab ride"}]},
+        {t:"Knee shield half guard: Standard → Sprawling split squat"},
+        {t:"Knee shield half guard: Z guard → Low head split squat"},
+        {t:"Half butterfly → High tripod"},
+        {t:"Half butterfly → Bodylock"}
+      ]},
+      {t:"Half Guard Passing", c:[
+        {t:"Chest to chest", c:[
+          {t:"Upper body controls", c:[{t:"Crossface"},{t:"Double unders"},{t:"Near side underhook"},{t:"Head positioning"}]},
+          {t:"Windshield wiper → Three quarter mount → Mount"},
+          {t:"Windshield wiper → Knee cut"}
+        ]}
+      ]},
+      {t:"Quarter Guard", c:[
+        {t:"→ Side control"},
+        {t:"Dealing with defences", c:[
+          {t:"John wayne sweep → Knees facing same way"},
+          {t:"Kimura → Early prevention"},{t:"Kimura → Clearing kimura"},
+          {t:"Underhook wrestle up → Overhook back step"},
+          {t:"Underhook wrestle up → Early prevention hip clamp"}
+        ]},
+        {t:"Knee shield: Split squat camping", c:[
+          {t:"Sprawling → Rau drag"},
+          {t:"Sprawling → Smashing knee shield → Shin pin"},
+          {t:"Sprawling → Smashing knee shield → Mount"},
+          {t:"Tripoding → Shin pin"},
+          {t:"Defence: Reverse de la riva → Back step J point"},
+          {t:"Defence: K hook → Hand positioning / Elbow blocking"},
+          {t:"Defence: Arm drag → Overback"},
+          {t:"Defence: Underhook wrestle up → Clamping hip near side underhook"}
+        ]}
+      ]},
+      {t:"Headquarters", c:[
+        {t:"Leg drag → Side control"},
+        {t:"Over/under → Head pressure into hip, Straight arms"},
+        {t:"Smash pass → Side control"},
+        {t:"J point"},
+        {t:"Throwing leg through → Three quarter mount → Mount"},
+        {t:"High tripod"}
+      ]},
+      {t:"Closed Guard Passing", c:[
+        {t:"Knee through centre"},
+        {t:"Standing ankle grip underhook break → De la riva → Knee to floor"},
+        {t:"Standing ankle grip underhook break → De la riva → Smash pass"},
+        {t:"Standing ankle grip underhook break → K guard → Control leg step out"},
+        {t:"Standing ankle grip underhook break → K guard → Crab ride shin block"},
+        {t:"Standing ankle grip push"}
+      ]}
+    ]
+  },
+  {
+    title: "Dominant Positions",
+    color: "#a78bfa",
+    nodes: [
+      {t:"Turtle", c:[
+        {t:"Offence", c:[
+          {t:"Seatbelt", c:[
+            {t:"Rolling backtake → Chair sit → Seated crab → Back take"},
+            {t:"Rolling backtake → Seated crab → Back take"},
+            {t:"Knee wedge → Peel ankle → Single hook"}
+          ]},
+          {t:"Spiral ride", c:[
+            {t:"Near side tip over → Reverse d'arce"},
+            {t:"Near side tip over → Back take"},
+            {t:"Far side → Head and arm"},
+            {t:"Far side → Reverse d'arce"},
+            {t:"Near side hook → Near side tip over"},
+            {t:"Near side hook → Far side rolling backtake"},
+            {t:"Far side hook → Half nelson → Second hook"}
+          ]},
+          {t:"Crab hook", c:[
+            {t:"Far side crab smash"},
+            {t:"Near side tip over → Lat hip grip"},
+            {t:"Near side tip over → Rear body lock → Near side tip over"}
+          ]},
+          {t:"Single hook"}
+        ]},
+        {t:"Defence", c:[{t:"Keep them outside of legs"},{t:"Blocking space for hooks"}]},
+        {t:"Counters", c:[{t:"Cartwheel"},{t:"Inside switch"},{t:"Fatman roll"},{t:"Granby"}]}
+      ]},
+      {t:"Front Headlock - Chin Strap", c:[
+        {t:"Head in hole → Rear Bodylock / Single leg Rear Bodylock / Whip by"},
+        {t:"High elbow guillotine (offence)"},
+        {t:"High elbow guillotine defence: Arm over / Stripping leg"},
+        {t:"High wrist guillotine (offence)"},
+        {t:"High wrist guillotine defence: Strip grip turn head"},
+        {t:"Anaconda (offence)"},
+        {t:"Anaconda defence: Leg and arm post"},
+        {t:"Boltcutter defence: Push arm off head"},
+        {t:"D'arce offence: Bolt cutter / Turtle"},
+        {t:"D'arce defence: Push arm off → Lay to back / Extend arm"},
+        {t:"Japanese Necktie offence: Bolt cutter"},
+        {t:"Japanese Necktie defence: Free leg / Hide foot / Clear bolt cutter"}
+      ]},
+      {t:"Front Headlock - Hands Locked", c:[
+        {t:"High elbow guillotine: Sit back / Roll through"},
+        {t:"High elbow guillotine defence: Arm over / Stripping leg"},
+        {t:"Anaconda offence"},
+        {t:"Anaconda defence: Arm and leg post"},
+        {t:"Boltcutter → D'arce / Japanese Necktie → Hook leg"},
+        {t:"Boltcutter defence: Push off head"},
+        {t:"D'arce offence: Bolt cutter / Turtle"},
+        {t:"D'arce defence: Escape arm"},
+        {t:"Japanese Necktie: Bolt cutter / Hook leg"},
+        {t:"Japanese Necktie defence: Clear bolt cutter / Hide foot"},
+        {t:"Head pinch → Anaconda"},
+        {t:"Head pinch defence: Leg up"},
+        {t:"Headspin → Anaconda"},
+        {t:"Headspin defence: Leg and arm post"}
+      ]},
+      {t:"Mount", c:[
+        {t:"Head arm", c:[
+          {t:"Turtles → Reverse darce"},
+          {t:"Arm to mat → Switch arms / Weave arm / Knee through → Mounted triangle"},
+          {t:"Arm to mat → S mount → Arm bar"}
+        ]},
+        {t:"Control", c:[
+          {t:"Offence: Squeezing legs"},{t:"Offence: Postured up"},
+          {t:"Offence: Feet position"},{t:"Offence: Isolating arm"},
+          {t:"Defence: Kipping escape"},{t:"Defence: Foot trap"}
+        ]}
+      ]},
+      {t:"Side Control", c:[
+        {t:"Defence: Shoulder frame → Dig Underhook → Wrestle up single leg"},
+        {t:"Defence: Shoulder frame → Bring knee shield back in"},
+        {t:"Defence: Knee frame"},
+        {t:"Offence: North South Choke"},{t:"Offence: Darce Choke"},
+        {t:"Offence: Far side arm bar"},{t:"Offence: Von flue"},{t:"Offence: Triangle"},
+        {t:"Near side Kimura", c:[{t:"Kimura"},{t:"Tarikoplata"},{t:"Arm bar"},{t:"Back take"}]},
+        {t:"To Mount: High step"},{t:"To Mount: Gift wrap to back"},{t:"To Mount: Seat belt to back"},
+        {t:"Control points: Tight waist / Near side underhook / Crossface"},
+        {t:"Transitions: Knee on belly"}
+      ]},
+      {t:"North South", c:[
+        {t:"Control: Arms inside / Behind tricep grips / Collar tie / Overback / Reverse bodylock"},
+        {t:"Transitions: Side control / Back / Front headlock / Turtle"},
+        {t:"Back: Gift wrap"},{t:"Back: Kimura"},
+        {t:"Offence: North south choke"},{t:"Offence: D'arce"},
+        {t:"Kimura", c:[{t:"Kimura"},{t:"Tarikoplata"},{t:"Arm bar"},{t:"Back take"}]},
+        {t:"Defence: Frames / Coil / Far shoulder foot hook / Wrestle up / Turtle"}
+      ]},
+      {t:"Back Control"}
+    ]
+  },
+  {
+    title: "Guard Playing",
+    color: "#47c8ff",
+    nodes: [
+      {t:"Seated Guard", c:[
+        {t:"Cross Grip → Collar tie → Overback / North south"},
+        {t:"High Tripod", c:[
+          {t:"Entries"},{t:"Arm and head position"},
+          {t:"Passes: Shoving leg down / Hip switch / Knee cut / Stepping over leg"}
+        ]},
+        {t:"Bodylock", c:[
+          {t:"Positioning: One arm deep one shallow / Tricep pressure / Head centered / Hips to ass / Pulling in"},
+          {t:"Dealing with Defences", c:[
+            {t:"Slipping out to closed guard → Pinning feet"},
+            {t:"Gogopalata → Bringing head to pummeling leg side"},
+            {t:"Framing head → Stepping over opposite side"},
+            {t:"Framing knees → Using head to create room"},
+            {t:"Pushing bodylock down → Tight bodylock"},
+            {t:"Underhooking arm"}
+          ]}
+        ]}
+      ]},
+      {t:"Guard Positions - Playing Side", c:[
+        {t:"Reverse de la riva → Kiss of the dragon → Crab ride"},
+        {t:"Reverse de la riva → Back step strip foot → I point"},
+        {t:"Reverse de la riva → Diving to crab x → Crab ride"},
+        {t:"De la riva → Baby bolo → Crab ride"},
+        {t:"De la riva → Turn knee outward → Push ankle → Headquarters"},
+        {t:"De la riva → Turn knee outward → Push ankle → High tripod"},
+        {t:"De la riva → Knee to floor"},
+        {t:"De la riva → Diving leg drag → Hammer down"},
+        {t:"De la riva → Diving crab x → Crab ride"},
+        {t:"K guard → Hips low → North south passing"},
+        {t:"K guard → Hips low → Underhook mount"},
+        {t:"K guard → Crab shin wedge → Crab ride"},
+        {t:"Knee shield half guard: Standard → Sprawling split squat"},
+        {t:"Knee shield half guard: Z guard → Low head split squat"},
+        {t:"Half butterfly → High tripod / Bodylock"},
+        {t:"Butterfly guard → Bodylock / High tripod"},
+        {t:"Butterfly guard: Shoulder crunch", c:[
+          {t:"Early prevention"},{t:"Shoulder crunch defence"},
+          {t:"Double unders → Posture up pummel underhook"},
+          {t:"Double unders → Arms above head → Elbows back → Posture up"},
+          {t:"Double unders → Foot on hip → Hip switch → Posture up"},
+          {t:"Wrestle ups"}
+        ]},
+        {t:"Outside ashi → Control knee line → Smash pass"},
+        {t:"Outside ashi → Knee wedge berimbolo → Back take"},
+        {t:"Butterfly ashi → Clear foot back step"},
+        {t:"Butterfly ashi → Spin out → Escape / Crab ride"}
+      ]},
+      {t:"Headquarters", c:[
+        {t:"Leg drag → Side control"},
+        {t:"Over/under → Head pressure into hip, Straight arms"},
+        {t:"Smash pass → Side control"},
+        {t:"Throwing leg through → Three quarter mount → Mount"},
+        {t:"J point"},{t:"High tripod"}
+      ]},
+      {t:"Closed Guard", c:[
+        {t:"Knee through centre"},
+        {t:"Standing ankle grip underhook break → De la riva → Knee to floor / Smash pass"},
+        {t:"Standing ankle grip underhook break → K guard → Control leg step out / Crab ride shin block"},
+        {t:"Standing ankle grip push"}
+      ]}
+    ]
+  },
+  {
+    title: "Crab Ride & Berimbolo",
+    color: "#34d399",
+    nodes: [
+      {t:"What is crab ride?", v:"https://youtu.be/_ZX2QpYZsYY"},
+      {t:"What is a berimbolo?"},
+      {t:"Entries: Inverted North south"},
+      {t:"Foundations", c:[
+        {t:"Crab X: Knee staple", v:"https://youtu.be/SeCBJnjZid4"},
+        {t:"Leg drag", v:"https://youtu.be/fKgXnrPQd-8"},
+        {t:"Hammer down", v:"https://youtu.be/TcmqIqhDiUA"},
+        {t:"Crab knee wedge → Back take"},
+        {t:"Crab reverse X: Leg drag", v:"https://youtu.be/qXd_DfldSrY"},
+        {t:"Crab reverse X: Knee staple", v:"https://youtu.be/qI5yVJIFRwI"},
+        {t:"Crab reverse X: Hammer down → Crab knee wedge → Back take"},
+        {t:"Crab shin wedge", v:"https://youtu.be/cai4w1F178U"},
+        {t:"Crab shin wedge: Invert crab X → Knee staple → Side control"},
+        {t:"Crab shin wedge: Invert crab X → Crab knee wedge → Back take"},
+        {t:"Knee staple → Side control"}
+      ]},
+      {t:"Knee Wedge Berimbolo", c:[
+        {t:"Back take"},
+        {t:"Reverse half → Hook far arm → Roll opponent with twister hook → Back take"},
+        {t:"Reverse half → Hook far arm → Chair sit for back → Back take"},
+        {t:"Far arm underhook twister hook back take"},
+        {t:"Far arm chair sit back take"}
+      ]},
+      {t:"Twister Hook Battle", c:[
+        {t:"Kick through back take", v:"https://youtu.be/RzGu0-anSM4"},
+        {t:"Rebolo off losing kick through", v:"https://youtu.be/cYjpcWI_geI"},
+        {t:"Double leg counter", v:"https://youtu.be/GmfoEJ_qebg"}
+      ]}
+    ]
+  }
+];
+
+// ─── STATE ──────────────────────────────────────────────────────────────────
+const STATE = {
+  progress: {},  // key → 'none'|'drilling'|'learned'
+  notes: {},     // key → string
+  currentNoteKey: null,
+  currentFilter: 'all',
+  totalNodes: 0,
+  learnedNodes: 0
+};
+
+function saveState() {
+  try {
+    localStorage.setItem('grapplingProgress', JSON.stringify(STATE.progress));
+    localStorage.setItem('grapplingNotes', JSON.stringify(STATE.notes));
+  } catch(e) {}
+}
+
+function loadState() {
+  try {
+    const p = localStorage.getItem('grapplingProgress');
+    const n = localStorage.getItem('grapplingNotes');
+    if (p) STATE.progress = JSON.parse(p);
+    if (n) STATE.notes = JSON.parse(n);
+  } catch(e) {}
+}
+
+function makeKey(sectionTitle, text) {
+  return (sectionTitle + '|' + text).toLowerCase().replace(/\s+/g, '_');
+}
+
+function updateStats() {
+  let learned = 0;
+  for (const v of Object.values(STATE.progress)) {
+    if (v === 'learned') learned++;
+  }
+  STATE.learnedNodes = learned;
+  document.getElementById('learnedCount').textContent = learned;
+  document.getElementById('totalCount').textContent = STATE.totalNodes;
+  const pct = STATE.totalNodes > 0 ? (learned / STATE.totalNodes * 100) : 0;
+  document.getElementById('progressBar').style.width = pct + '%';
+}
+
+// ─── BUILD UI ───────────────────────────────────────────────────────────────
+function buildNode(node, sectionTitle, depth, parentUl) {
+  const li = document.createElement('li');
+  li.className = 'tree-item';
+  const key = makeKey(sectionTitle, node.t);
+  li.dataset.key = key;
+  li.dataset.hasVideo = node.v ? '1' : '0';
+
+  const nodeDiv = document.createElement('div');
+  nodeDiv.className = 'node';
+  const indent = depth * 20;
+  nodeDiv.style.paddingLeft = (indent + 8) + 'px';
+
+  const hasChildren = node.c && node.c.length > 0;
+
+  // Toggle
+  const toggle = document.createElement('div');
+  toggle.className = hasChildren ? 'node-toggle' : 'node-toggle leaf';
+  toggle.textContent = hasChildren ? '−' : '·';
+
+  // Content
+  const content = document.createElement('div');
+  content.className = 'node-content';
+
+  const label = document.createElement('span');
+  label.className = node.v ? 'node-label has-video' : 'node-label';
+  label.textContent = node.t;
+  content.appendChild(label);
+
+  // Actions
+  const actions = document.createElement('div');
+  actions.className = 'node-actions';
+
+  if (node.v) {
+    const vBtn = document.createElement('button');
+    vBtn.className = 'btn-video';
+    vBtn.textContent = '▶ Video';
+    vBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      e.preventDefault();
+      // Extract YouTube video ID
+      const url = node.v;
+      const vidId = url.split('/').pop().split('?')[0];
+      // Toggle inline player
+      const existing = li.querySelector('.inline-player');
+      if (existing) { existing.remove(); return; }
+      const playerWrap = document.createElement('div');
+      playerWrap.className = 'inline-player';
+      playerWrap.style.cssText = 'padding: 8px 0 4px ' + (indent + 28) + 'px;';
+      playerWrap.innerHTML = `
+        <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:4px;border:1px solid var(--border);">
+          <iframe src="https://www.youtube.com/embed/${vidId}?autoplay=1" 
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" 
+            allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        </div>`;
+      li.appendChild(playerWrap);
+      vBtn.textContent = '✕ Close';
+      vBtn.style.borderColor = 'var(--accent2)';
+      // When closed reset button text
+      playerWrap._cleanup = () => { vBtn.textContent = '▶ Video'; vBtn.style.borderColor = ''; };
+    });
+    actions.appendChild(vBtn);
+  }
+
+  // Progress pill
+  const prog = document.createElement('div');
+  prog.className = 'progress-pill';
+  const curProg = STATE.progress[key] || 'none';
+  if (curProg === 'drilling') { prog.classList.add('drilling'); prog.textContent = 'Drilling'; }
+  else if (curProg === 'learned') { prog.classList.add('learned'); prog.textContent = '✓ Learned'; }
+  else prog.textContent = 'Track';
+
+  prog.addEventListener('click', e => {
+    e.stopPropagation();
+    const cur = STATE.progress[key] || 'none';
+    const next = cur === 'none' ? 'drilling' : cur === 'drilling' ? 'learned' : 'none';
+    STATE.progress[key] = next;
+    prog.className = 'progress-pill';
+    if (next === 'drilling') { prog.classList.add('drilling'); prog.textContent = 'Drilling'; }
+    else if (next === 'learned') { prog.classList.add('learned'); prog.textContent = '✓ Learned'; }
+    else prog.textContent = 'Track';
+    li.dataset.progress = next;
+    saveState();
+    updateStats();
+    applyFilter(STATE.currentFilter);
+  });
+  li.dataset.progress = curProg;
+  actions.appendChild(prog);
+
+  // Note button
+  const noteBtn = document.createElement('button');
+  noteBtn.className = STATE.notes[key] ? 'btn-note has-note' : 'btn-note';
+  noteBtn.textContent = '✎';
+  noteBtn.title = 'Add note';
+  noteBtn.addEventListener('click', e => {
+    e.stopPropagation();
+    openNotePanel(key, node.t);
+  });
+  li.dataset.hasNote = STATE.notes[key] ? '1' : '0';
+  actions.appendChild(noteBtn);
+
+  content.appendChild(actions);
+  nodeDiv.appendChild(toggle);
+  nodeDiv.appendChild(content);
+  li.appendChild(nodeDiv);
+
+  // Children
+  if (hasChildren) {
+    const ul = document.createElement('ul');
+    ul.className = 'tree children';
+    node.c.forEach(child => buildNode(child, sectionTitle, depth + 1, ul));
+    li.appendChild(ul);
+
+    toggle.addEventListener('click', e => {
+      e.stopPropagation();
+      li.classList.toggle('collapsed');
+      const tog = li.querySelector(':scope > .node > .node-toggle');
+      if (tog && !tog.classList.contains('leaf')) {
+        tog.textContent = li.classList.contains('collapsed') ? '+' : '−';
+      }
+      // Remove inline player when collapsing
+      if (li.classList.contains('collapsed')) {
+        li.querySelectorAll('.inline-player').forEach(p => { if(p._cleanup) p._cleanup(); p.remove(); });
+      }
+    });
+
+    nodeDiv.addEventListener('click', () => {
+      li.classList.toggle('collapsed');
+      toggle.textContent = li.classList.contains('collapsed') ? '+' : '−';
+      if (li.classList.contains('collapsed')) {
+        li.querySelectorAll('.inline-player').forEach(p => { if(p._cleanup) p._cleanup(); p.remove(); });
+      }
+    });
+  }
+
+  STATE.totalNodes++;
+  parentUl.appendChild(li);
+}
+
+function buildSections() {
+  const container = document.getElementById('sections');
+  SECTIONS.forEach((section, i) => {
+    const div = document.createElement('div');
+    div.className = 'section';
+    div.dataset.section = section.title;
+
+    const header = document.createElement('div');
+    header.className = 'section-header';
+    header.innerHTML = `
+      <div class="section-dot" style="background:${section.color}"></div>
+      <div class="section-title">${section.title}</div>
+      <div class="section-chevron">▾</div>
+    `;
+    header.addEventListener('click', () => div.classList.toggle('collapsed'));
+
+    const body = document.createElement('div');
+    body.className = 'section-body';
+
+    const ul = document.createElement('ul');
+    ul.className = 'tree';
+    section.nodes.forEach(node => buildNode(node, section.title, 0, ul));
+    body.appendChild(ul);
+
+    div.appendChild(header);
+    div.appendChild(body);
+    container.appendChild(div);
+  });
+}
+
+// ─── NOTE PANEL ─────────────────────────────────────────────────────────────
+function openNotePanel(key, title) {
+  STATE.currentNoteKey = key;
+  document.getElementById('notePanelTitle').textContent = title;
+  document.getElementById('noteTextarea').value = STATE.notes[key] || '';
+  document.getElementById('notePanel').classList.add('open');
+  document.getElementById('overlay').classList.add('active');
+  setTimeout(() => document.getElementById('noteTextarea').focus(), 300);
+}
+
+function closeNotePanel() {
+  document.getElementById('notePanel').classList.remove('open');
+  document.getElementById('overlay').classList.remove('active');
+  STATE.currentNoteKey = null;
+}
+
+document.getElementById('notePanelClose').addEventListener('click', closeNotePanel);
+document.getElementById('overlay').addEventListener('click', closeNotePanel);
+
+document.getElementById('noteSaveBtn').addEventListener('click', () => {
+  const key = STATE.currentNoteKey;
+  const val = document.getElementById('noteTextarea').value.trim();
+  if (val) {
+    STATE.notes[key] = val;
+  } else {
+    delete STATE.notes[key];
+  }
+  saveState();
+  // Update note button
+  const li = document.querySelector(`[data-key="${key}"]`);
+  if (li) {
+    const btn = li.querySelector('.btn-note');
+    if (btn) {
+      btn.className = val ? 'btn-note has-note' : 'btn-note';
+    }
+    li.dataset.hasNote = val ? '1' : '0';
+  }
+  applyFilter(STATE.currentFilter);
+  closeNotePanel();
+});
+
+document.getElementById('noteClearBtn').addEventListener('click', () => {
+  document.getElementById('noteTextarea').value = '';
+});
+
+// ─── SEARCH ─────────────────────────────────────────────────────────────────
+document.getElementById('searchInput').addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  if (!q) {
+    document.querySelectorAll('.tree-item').forEach(li => {
+      li.classList.remove('hidden', 'highlight');
+    });
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('hidden'));
+    applyFilter(STATE.currentFilter);
+    return;
+  }
+
+  document.querySelectorAll('.tree-item').forEach(li => {
+    const label = li.querySelector('.node-label');
+    if (!label) return;
+    const match = label.textContent.toLowerCase().includes(q);
+    li.classList.toggle('highlight', match);
+    li.classList.toggle('hidden', !match);
+    if (match) {
+      li.classList.remove('collapsed');
+      let parent = li.parentElement;
+      while (parent) {
+        if (parent.classList && parent.classList.contains('tree-item')) {
+          parent.classList.remove('hidden', 'collapsed');
+        }
+        if (parent.classList && parent.classList.contains('section')) {
+          parent.classList.remove('hidden', 'collapsed');
+        }
+        parent = parent.parentElement;
+      }
+    }
+  });
+});
+
+// ─── FILTER ─────────────────────────────────────────────────────────────────
+function applyFilter(filter) {
+  STATE.currentFilter = filter;
+  const q = document.getElementById('searchInput').value.trim();
+  if (q) return; // search takes priority
+
+  document.querySelectorAll('.tree-item').forEach(li => {
+    li.classList.remove('hidden');
+    let show = true;
+    if (filter === 'video') show = li.dataset.hasVideo === '1';
+    else if (filter === 'drilling') show = li.dataset.progress === 'drilling';
+    else if (filter === 'learned') show = li.dataset.progress === 'learned';
+    else if (filter === 'notes') show = li.dataset.hasNote === '1';
+    li.classList.toggle('hidden', !show);
+
+    if (!show) return;
+    // Show parents
+    let parent = li.parentElement;
+    while (parent) {
+      if (parent.classList && parent.classList.contains('tree-item')) parent.classList.remove('hidden');
+      parent = parent.parentElement;
+    }
+  });
+
+  // Hide empty sections
+  document.querySelectorAll('.section').forEach(sec => {
+    if (filter === 'all') { sec.classList.remove('hidden'); return; }
+    const visible = sec.querySelectorAll('.tree-item:not(.hidden)').length > 0;
+    sec.classList.toggle('hidden', !visible);
+  });
+}
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById('searchInput').value = '';
+    document.querySelectorAll('.tree-item').forEach(li => li.classList.remove('hidden', 'highlight'));
+    applyFilter(this.dataset.filter);
+  });
+});
+
+// ─── COLLAPSE ALL ────────────────────────────────────────────────────────────
+document.getElementById('collapseAllBtn').addEventListener('click', function() {
+  // Collapse all sections
+  document.querySelectorAll('.section').forEach(s => {
+    s.classList.add('collapsed');
+  });
+  // Collapse all tree items that have children
+  document.querySelectorAll('.tree-item').forEach(li => {
+    const children = li.querySelector(':scope > .children');
+    if (children) {
+      li.classList.add('collapsed');
+      const toggle = li.querySelector(':scope > .node > .node-toggle');
+      if (toggle && !toggle.classList.contains('leaf')) toggle.textContent = '+';
+    }
+  });
+});
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+loadState();
+buildSections();
+updateStats();
+</script>
+</body>
+</html>
