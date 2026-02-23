@@ -521,6 +521,15 @@ h1 {
 .view-tab:hover { color: var(--text); }
 .view-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
 
+
+.view-in-map-btn {
+  font-size: 14px;
+  text-decoration: none;
+  opacity: 0.4;
+  transition: opacity 0.15s;
+  padding: 2px 4px;
+}
+.view-in-map-btn:hover { opacity: 1; }
 </style>
 </head>
 <body>
@@ -569,15 +578,21 @@ h1 {
 </div>
 
 <div id="mapView" style="display:none; padding: 16px 20px;">
-  <iframe 
-    width="100%" 
-    height="700" 
-    style="border: 1px solid #2a3040; border-radius: 6px;" 
-    src="https://www.mindomo.com/mindmap/grappling-mind-map-065fa85bef6a49538899225dc16e1032" 
-    frameborder="0" 
-    allowfullscreen>
-    <a href="https://www.mindomo.com/mindmap/grappling-mind-map-065fa85bef6a49538899225dc16e1032" target="_blank">View map</a>
-  </iframe>
+  <div style="position:relative; width:100%; height:700px; overflow:hidden; border: 1px solid #2a3040; border-radius: 6px;">
+    <iframe 
+      id="mindmapFrame"
+      width="160%" 
+      height="160%" 
+      style="border:none; transform: scale(0.625); transform-origin: 0 0;" 
+      src="https://www.mindomo.com/mindmap/grappling-mind-map-065fa85bef6a49538899225dc16e1032?zoom=0.4" 
+      frameborder="0" 
+      allowfullscreen>
+      <a href="https://www.mindomo.com/mindmap/grappling-mind-map-065fa85bef6a49538899225dc16e1032" target="_blank">View map</a>
+    </iframe>
+  </div>
+  <div style="padding: 10px 0 0; text-align: right;">
+    <a href="https://www.mindomo.com/mindmap/grappling-mind-map-065fa85bef6a49538899225dc16e1032" target="_blank" style="font-family: DM Mono, monospace; font-size: 11px; color: var(--text-muted); text-decoration: none; border: 1px solid var(--border); padding: 5px 12px; border-radius: 2px; letter-spacing: 1px;">OPEN FULL MAP ↗</a>
+  </div>
 </div>
 <div class="overlay" id="overlay"></div>
 
@@ -4511,9 +4526,13 @@ function buildSections() {
     header.innerHTML = `
       <div class="section-dot" style="background:${section.color}"></div>
       <div class="section-title">${section.title}</div>
+      <a href="https://www.mindomo.com/mindmap/grappling-mind-map-065fa85bef6a49538899225dc16e1032" target="_blank" class="view-in-map-btn" title="View in Mind Map">🗺</a>
       <div class="section-chevron">▾</div>
     `;
-    header.addEventListener('click', () => div.classList.toggle('collapsed'));
+    header.addEventListener('click', (e) => {
+      if (e.target.classList.contains('view-in-map-btn')) return;
+      div.classList.toggle('collapsed');
+    });
 
     const body = document.createElement('div');
     body.className = 'section-body';
@@ -4683,6 +4702,16 @@ document.querySelectorAll('.view-tab').forEach(tab => {
 loadState();
 buildSections();
 updateStats();
+
+// Collapse everything on load
+document.querySelectorAll('.section').forEach(s => s.classList.add('collapsed'));
+document.querySelectorAll('.tree-item').forEach(li => {
+  if (li.querySelector(':scope > .children')) {
+    li.classList.add('collapsed');
+    const toggle = li.querySelector(':scope > .node > .node-toggle');
+    if (toggle && !toggle.classList.contains('leaf')) toggle.textContent = '+';
+  }
+});
 </script>
 </body>
 </html>
