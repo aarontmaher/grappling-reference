@@ -581,17 +581,17 @@ h1 {
   <div style="position:relative; width:100%; height:700px; overflow:hidden; border: 1px solid #2a3040; border-radius: 6px;">
     <iframe 
       id="mindmapFrame"
-      width="160%" 
-      height="160%" 
-      style="border:none; transform: scale(0.625); transform-origin: 0 0;" 
-      src="https://www.mindomo.com/mindmap/grappling-mind-map-065fa85bef6a49538899225dc16e1032?zoom=0.4" 
+      width="250%" 
+      height="250%" 
+      style="border:none; transform: scale(0.4); transform-origin: 0 0;" 
+      src="https://www.mindomo.com/mindmap/grappling-mind-map-065fa85bef6a49538899225dc16e1032" 
       frameborder="0" 
       allowfullscreen>
       <a href="https://www.mindomo.com/mindmap/grappling-mind-map-065fa85bef6a49538899225dc16e1032" target="_blank">View map</a>
     </iframe>
   </div>
   <div style="padding: 10px 0 0; text-align: right;">
-    <a href="https://www.mindomo.com/mindmap/grappling-mind-map-065fa85bef6a49538899225dc16e1032" target="_blank" style="font-family: DM Mono, monospace; font-size: 11px; color: var(--text-muted); text-decoration: none; border: 1px solid var(--border); padding: 5px 12px; border-radius: 2px; letter-spacing: 1px;">OPEN FULL MAP ↗</a>
+    <button onclick="switchToMap()" style="font-family: DM Mono, monospace; font-size: 11px; color: var(--text-muted); background: transparent; text-decoration: none; border: 1px solid var(--border); padding: 5px 12px; border-radius: 2px; letter-spacing: 1px; cursor: pointer;">OPEN FULL MAP ↗</button>
   </div>
 </div>
 <div class="overlay" id="overlay"></div>
@@ -4526,7 +4526,7 @@ function buildSections() {
     header.innerHTML = `
       <div class="section-dot" style="background:${section.color}"></div>
       <div class="section-title">${section.title}</div>
-      <a href="https://www.mindomo.com/mindmap/grappling-mind-map-065fa85bef6a49538899225dc16e1032" target="_blank" class="view-in-map-btn" title="View in Mind Map">🗺</a>
+      <span class="view-in-map-btn" title="View in Mind Map" onclick="event.stopPropagation(); switchToMap()">🗺</span>
       <div class="section-chevron">▾</div>
     `;
     header.addEventListener('click', (e) => {
@@ -4686,6 +4686,15 @@ document.getElementById('collapseAllBtn').addEventListener('click', function() {
   });
 });
 
+
+
+function switchToMap() {
+  document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector('[data-view="map"]').classList.add('active');
+  document.getElementById('mapView').style.display = 'block';
+  document.getElementById('referenceView').style.display = 'none';
+  window.scrollTo(0, 0);
+}
 
 // ─── VIEW SWITCHING ──────────────────────────────────────────────────────────
 document.querySelectorAll('.view-tab').forEach(tab => {
