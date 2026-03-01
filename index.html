@@ -190,6 +190,155 @@ header { background: var(--surface); border-bottom: 1px solid var(--border); pad
 .g3d-toggle-track::after { content:'';position:absolute;left:2px;top:50%;transform:translateY(-50%);width:11px;height:11px;background:#4a5568;border-radius:50%;transition:all 0.2s; }
 .g3d-toggle input:checked + .g3d-toggle-track::after { left:calc(100% - 13px);background:#000; }
 
+
+/* ══════════════════════════════════════════════════════════
+   MOBILE & RESPONSIVE ENHANCEMENTS
+   ══════════════════════════════════════════════════════════ */
+
+.import-btn {
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 7px 14px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 3px;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.import-btn:hover { border-color: var(--accent); color: var(--accent); }
+.filter-drawer { display: none; }
+
+.filter-toggle {
+  display: none;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: 3px;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+.filter-toggle.active { border-color: var(--accent); color: var(--accent); }
+
+@media (max-width: 900px) {
+  header { padding: 10px 14px; }
+  .logo { font-size: 24px; }
+  .stat-num { font-size: 18px; }
+  .stats { gap: 14px; }
+}
+
+@media (max-width: 600px) {
+  .view-tabs {
+    position: fixed;
+    bottom: 0; left: 0; right: 0; top: auto;
+    z-index: 45;
+    border-bottom: none;
+    border-top: 1px solid var(--border);
+    background: var(--surface);
+    padding: 0;
+    justify-content: stretch;
+    overflow: visible;
+  }
+  .view-tab {
+    flex: 1;
+    padding: 14px 4px 12px;
+    font-size: 9px;
+    letter-spacing: 0.5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    min-height: 56px;
+    border-bottom: none;
+    border-top: 2px solid transparent;
+  }
+  .view-tab.active { border-bottom: none; border-top-color: var(--accent); }
+  body { padding-bottom: 64px; }
+  header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; }
+  .logo { font-size: 22px; letter-spacing: 2px; }
+  .stats { gap: 10px; }
+  .stat-num { font-size: 16px; }
+  .toolbar { flex-wrap: nowrap; overflow: visible; padding: 8px 10px; position: relative; align-items: center; }
+  .search-wrap { min-width: 0; flex: 1; }
+  .filter-toggle { display: flex; }
+  .filter-drawer {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 10px;
+    flex-wrap: wrap;
+    gap: 6px;
+    z-index: 30;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .filter-drawer.open { display: flex; }
+  .filter-tabs { display: none !important; }
+  .toolbar-btn { display: none; }
+  .filter-drawer .tab,
+  .filter-drawer .toolbar-btn {
+    display: inline-flex !important;
+    min-height: 36px;
+    align-items: center;
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+  .section-header { min-height: 52px; padding: 14px 14px; }
+  .node { min-height: 44px; align-items: center; padding: 6px 10px 6px 4px; }
+  .node-toggle { width: 32px; height: 32px; font-size: 13px; }
+  .progress-pill { padding: 6px 10px; font-size: 10px; }
+  .btn-video { padding: 6px 10px; font-size: 10px; }
+  .btn-note { padding: 6px 8px; font-size: 14px; min-width: 32px; }
+  .mctrl { width: 40px; height: 40px; font-size: 18px; }
+  .g3d-tb-btn { height: 40px; padding: 0 14px; font-size: 13px; }
+  .node-popup {
+    position: fixed !important;
+    bottom: 64px !important;
+    left: 0 !important; right: 0 !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 70vh;
+    overflow-y: auto;
+    border-radius: 12px 12px 0 0;
+    border: 1px solid var(--border);
+    border-bottom: none;
+    z-index: 200;
+  }
+  #g3dDetail {
+    position: fixed !important;
+    bottom: 64px !important;
+    left: 0 !important; right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    max-height: 60vh;
+    overflow-y: auto;
+    border-radius: 12px 12px 0 0;
+    top: auto !important;
+  }
+  #customMapView { height: calc(100vh - 120px); }
+  #cmCanvas { height: 100% !important; }
+  #graph3dView { height: calc(100vh - 64px); }
+  .sections { padding: 8px; }
+  .section { border-radius: 4px; }
+  .stats { display: none; }
+  .popup-close { width: 32px; height: 32px; font-size: 16px; }
+}
+
+@media (max-width: 380px) {
+  .logo { font-size: 18px; }
+  .view-tab { font-size: 8px; padding: 12px 2px 10px; }}
+
 </style>
 </head>
 <body>
@@ -216,6 +365,7 @@ header { background: var(--surface); border-bottom: 1px solid var(--border); pad
       <span style="color:var(--text-muted);font-size:12px;">⌕</span>
       <input type="text" id="refSearch" placeholder="Search techniques...">
     </div>
+    <button class="filter-toggle" id="refFilterToggle">⊞ Filters</button>
     <div class="filter-tabs">
       <button class="tab active" data-filter="all">All</button>
       <button class="tab" data-filter="drilling">Drilling</button>
@@ -223,6 +373,15 @@ header { background: var(--surface); border-bottom: 1px solid var(--border); pad
       <button class="tab" data-filter="video">Video</button>
     </div>
     <button class="toolbar-btn" id="refCollapseAll">Collapse All</button>
+    <button class="toolbar-btn" id="refExpandAll">Expand All</button>
+  </div>
+  <div class="filter-drawer" id="refFilterDrawer">
+    <button class="tab active" data-filter="all" data-drawer="ref">All</button>
+    <button class="tab" data-filter="drilling" data-drawer="ref">Drilling</button>
+    <button class="tab" data-filter="learned" data-drawer="ref">Learned</button>
+    <button class="tab" data-filter="video" data-drawer="ref">Video</button>
+    <button class="toolbar-btn" id="refCollapseAllMob">Collapse All</button>
+    <button class="toolbar-btn" id="refExpandAllMob">Expand All</button>
   </div>
   <div class="sections" id="sections"></div>
 </div>
@@ -236,6 +395,7 @@ header { background: var(--surface); border-bottom: 1px solid var(--border); pad
       <span style="color:var(--text-muted);font-size:12px;">⌕</span>
       <input type="text" id="cmSearch" placeholder="Search techniques...">
     </div>
+    <button class="filter-toggle" id="cmFilterToggle">⊞ Filters</button>
     <div class="filter-tabs">
       <button class="tab active cm-filter" data-filter="all">All</button>
       <button class="tab cm-filter" data-filter="drilling">Drilling</button>
@@ -243,6 +403,13 @@ header { background: var(--surface); border-bottom: 1px solid var(--border); pad
     </div>
     <button class="toolbar-btn" id="cmCollapseAll">Collapse All</button>
     <button class="toolbar-btn" id="cmExpandAll">Expand All</button>
+  </div>
+  <div class="filter-drawer" id="cmFilterDrawer">
+    <button class="tab active cm-filter" data-filter="all" data-drawer="cm">All</button>
+    <button class="tab cm-filter" data-filter="drilling" data-drawer="cm">Drilling</button>
+    <button class="tab cm-filter" data-filter="learned" data-drawer="cm">Learned</button>
+    <button class="toolbar-btn" id="cmCollapseAllMob">Collapse All</button>
+    <button class="toolbar-btn" id="cmExpandAllMob">Expand All</button>
   </div>
   <div style="position:relative; flex:1; overflow:hidden; background:#080a0e; min-height:calc(100vh - 200px);" id="cmCanvas">
     <svg id="cmSvg" style="position:absolute;top:0;left:0;" overflow="visible"></svg>
@@ -356,7 +523,7 @@ header { background: var(--surface); border-bottom: 1px solid var(--border); pad
 
 <script>
 // ─── DATA ────────────────────────────────────────────────────────────────────
-const SECTIONS = [{"title": "Wrestling forBrazillian Jiu Jitsu", "color": "#e8ff47", "nodes": [{"t": "- Collar Tie", "c": [{"t": "Entries", "v": "https://youtu.be/Ye-Jvn023XI", "c": [{"t": "Outside tie", "v": "https://youtu.be/Ye-Jvn023XI"}, {"t": "Collar tie", "v": "https://youtu.be/Kf0wQ00FPBg"}]}, {"t": "Offence", "c": [{"t": "Brush by", "v": "https://youtu.be/oejTa6J72gE", "n": "Most effective when opponent is heavy on collar tie", "c": [{"t": "- Disengaging", "v": "https://youtu.be/oejTa6J72gE"}, {"t": "- Rear body lock", "v": "https://youtu.be/oXuG3DJBMEE"}, {"t": "- Snatch head inside single", "v": "https://youtu.be/B6jTl90lucM"}, {"t": "Snatch head outside single", "v": "https://youtu.be/WtUX-OiWYkU"}]}, {"t": "-Throw by", "v": "https://youtu.be/1wOwMfPHMDs", "c": [{"t": "Head to head", "v": "https://youtu.be/1wOwMfPHMDs"}, {"t": "Head to shoulder", "v": "https://youtu.be/m42WTwg3Feo"}, {"t": "Outside tie", "v": "https://youtu.be/ZLbj39rn6pU"}]}, {"t": "Snap downs", "v": "https://youtu.be/WZ--OY1yQXU", "c": [{"t": "Collar Tie and Inside Tie Snap Down", "v": "https://youtu.be/WZ--OY1yQXU"}, {"t": "Overtie snap", "v": "https://youtu.be/NlIBlkV5PVY"}, {"t": "Brush by snap", "v": "https://youtu.be/QE8PS6puob0"}]}, {"t": "- 2 on 1", "c": [{"t": "- Offence", "v": "https://youtu.be/r0-5x2mBL84", "c": [{"t": "- Climb to back", "v": "https://youtu.be/r0-5x2mBL84"}, {"t": "- Snatch single", "v": "https://youtu.be/cdQakEraYKE"}, {"t": "- ankle pick", "v": "https://youtu.be/6RapDAy2HQQ"}, {"t": "- front headlock", "v": "https://youtu.be/DzxwkbNuUBw"}]}, {"t": "- Defence", "c": [{"t": "Framing on head"}, {"t": "Pulling far elbow", "c": [{"t": "Underhook"}]}]}]}]}]}, {"t": "- Wrestling hand fighting positions", "c": [{"t": "- Inside Tie", "c": [{"t": "- [Inside Tie to Sweep Single]"}]}, {"t": "- Over/Under", "c": [{"t": "- Arm drag"}, {"t": "- Sweep single"}, {"t": "- Snatch single"}, {"t": "- Inside leg trip"}, {"t": "- Inside leg trip to scissor takedown"}, {"t": "- Knee tap"}]}, {"t": "- Underhook", "c": [{"t": "- Head inside double"}, {"t": "- run the pipe"}, {"t": "- foot lift"}, {"t": "- Side bodylock", "c": [{"t": "- Front side uchimata"}, {"t": "- Lift and dump"}]}, {"t": "- Rear bodylock throwby", "c": [{"t": "- Mat return"}, {"t": "- Cran ride entry", "c": [{"t": "- Back take"}, {"t": "- Knee staple"}]}, {"t": "- Lift and dump"}]}, {"t": "- [Snatch head inside Single]"}, {"t": "- Knee tap"}, {"t": "- Front headlock"}, {"t": "- Snatch head outside sngle"}, {"t": "- head inside single"}, {"t": "- head outside single"}]}, {"t": "- Outside tie", "c": [{"t": "- [Knee Pull Sweep Single]"}, {"t": "- throw by"}, {"t": "- collar tie throw by"}, {"t": "- head inside single"}, {"t": "- double leg"}, {"t": "- brush by"}, {"t": "- 2 on 1"}]}]}, {"t": "- Rear Bodylock", "c": [{"t": "- Turtle Rear Bodylock", "c": [{"t": "- Spiral ride", "c": [{"t": "- Near side hook", "c": [{"t": "- Far side roll", "c": [{"t": "- Hip pinch", "c": [{"t": "- Back take"}]}]}]}, {"t": "- Far side hook", "c": [{"t": "- Second hook", "c": [{"t": "- Back tke"}]}]}, {"t": "- Opponent rolls far side", "c": [{"t": "- Head arm choke"}]}]}, {"t": "- Seatbelt", "c": [{"t": "- Rolling backtake", "c": [{"t": "- Seated rear bodylock", "c": [{"t": "- Back take"}]}]}, {"t": "- Hooks in", "c": [{"t": "- Backtake"}]}]}, {"t": "- Body lock", "c": [{"t": "- Knee wedge hook in", "c": [{"t": "- Far side roll", "c": [{"t": "- Hip pinch", "c": [{"t": "- Backtake"}]}]}]}, {"t": "- Crab hook", "c": [{"t": "- Seated rear body lock", "c": [{"t": "- Back take"}]}]}]}]}, {"t": "- Tripod Rear Bodylock", "c": [{"t": "- Throwing hooks in", "c": [{"t": "- Weight on hands", "c": [{"t": "- Half nelson", "c": [{"t": "- Backtake"}]}, {"t": "- 2 on 1", "c": [{"t": "- Back take"}]}]}, {"t": "- Weight on feet", "c": [{"t": "- Rear naked choke"}, {"t": "- Underhooking knee", "c": [{"t": "- Suloev stretch"}]}, {"t": "- Half nelson", "c": [{"t": "- Shoulder stretch"}]}]}]}, {"t": "- Elbow in thigh takedown", "c": [{"t": "- Turtle Rear bodylock"}]}, {"t": "- Feet behind heels", "c": [{"t": "- Crab ride"}]}]}, {"t": "- Standing Rear Bodylock", "c": [{"t": "- Defence", "c": [{"t": "- Grip Breaks", "c": [{"t": "- [Grip Break 1]"}, {"t": "- [Grip Break 2]"}, {"t": "- [Grip Break 3 ]"}]}, {"t": "- Counters", "c": [{"t": "- [Uchi Mata Counter Front Headlock]"}, {"t": "- [Uchi Mata Counter Ankle Pick]"}, {"t": "- [Uchi Mata Throw Counter ]"}, {"t": "- [Chin Push Counter to Front Bodylock]"}, {"t": "- [Inside Leg Trip Counter to Front Bodylock]"}, {"t": "- [Lift and Sweep Counter to Side Bodylock]"}]}]}, {"t": "- Offence", "c": [{"t": "- [Mat return]"}, {"t": "- [Front Side Uchi Mata from Side Bodylock]"}, {"t": "- [Lower Back Crunch from Front Bodylock]"}, {"t": "- Crab Ride Entry"}]}, {"t": "- c"}]}]}, {"t": "- Head Inside Single", "c": [{"t": "- Offence", "c": [{"t": "- [Foot Lift Takedown]"}, {"t": "- Shin Whizzer", "c": [{"t": "- [Limp Arm Counter to Shin Whizzer]"}, {"t": "- [Running the Pipe Counter to Shin Whizzer]"}, {"t": "- [Head Inside Double Leg Counter to Shin Whizzer]"}, {"t": "- [Collar Tie Ankle Tap Counter to Shin Whizzer]"}]}, {"t": "- Tripod Defence", "c": [{"t": "- [Rear Body Lock counter to Tripod Defence]"}]}, {"t": "- Near Side Block", "c": [{"t": "- [Knock Over Rear Bodylock counter to Near Side Block Tripod]"}]}, {"t": "- Iranian", "c": [{"t": "- [Iranian counter to Sprawl]"}, {"t": "- [Iranian to Rear Bodylock counter to Sprawl]"}]}, {"t": "- Sprawl", "c": [{"t": "- [Shelfing the Leg counter to Sprawl]"}, {"t": "- [Shelfing leg through Grounded Shin Whizzer]"}, {"t": "- [Cut Back Single Leg counter to Sprawl]"}]}]}, {"t": "- Defence", "c": [{"t": "- Near Side Block", "c": [{"t": "- [Tripod Defence Near Side Block ]"}, {"t": "- Bail out"}]}, {"t": "- Shin Whizzer", "c": [{"t": "- [Shin Whizzer Front Headlock Counter]"}, {"t": "- [Grip Break Defence from Shin Whizzer]"}]}, {"t": "- Tripod Defence", "c": [{"t": "- [Inside Switch Tripod Defence]"}, {"t": "- Bail out"}]}, {"t": "- Iranian", "c": [{"t": "- [Near Side Block counter to Iranian]"}, {"t": "- Bail out"}]}, {"t": "- Sprawl", "c": [{"t": "- Grounded Shin Whizzer"}, {"t": "- [How to Sprawl]"}, {"t": "- [Sprawl to Belly Whizzer]"}]}]}]}, {"t": "- Head Outside Single", "c": [{"t": "- Running the pipe"}, {"t": "- Double leg", "c": [{"t": "- Hands locked"}, {"t": "- Split grip", "c": [{"t": "- complete double"}, {"t": "- Cut to rear body lock", "c": [{"t": "- tripod breakdown"}]}]}]}, {"t": "-Crackdown"}]}, {"t": "- Double Leg"}, {"t": "- Grounded 50/50"}]}, {"title": "Guard Passing", "color": "#ff6b35", "nodes": [{"t": "Outside Camping", "c": [{"t": "- J point", "v": "https://youtu.be/YxIJBbf55a0", "c": [{"t": "- Entries", "v": "https://youtu.be/8toccngMCZg", "c": [{"t": "Seated guard", "v": "https://youtu.be/5-jZLnq4Ak8", "c": [{"t": "Hip post", "v": "https://youtu.be/5-jZLnq4Ak8"}, {"t": "Collar tie", "v": "https://youtu.be/ZbmUQD0lIAs"}]}, {"t": "Supine guard", "v": "https://youtu.be/8toccngMCZg"}]}, {"t": "- Maintaing Camping Control points", "v": "https://youtu.be/YxIJBbf55a0"}, {"t": "- Passes", "v": "https://youtu.be/UZt7aEEds7w", "c": [{"t": "Toerando", "v": "https://youtu.be/UZt7aEEds7w"}, {"t": "Leg drag", "v": "https://youtu.be/OYfI4G1T4Lg"}, {"t": "North South", "v": "https://youtu.be/Vy-66UJAySQ"}, {"t": "Sprawl", "v": "https://youtu.be/UtSsoK-66Mc"}]}, {"t": "-Preventing andcountering defences", "v": "https://youtu.be/K8s4BNprDLM", "c": [{"t": "Lasso", "v": "https://youtu.be/kQ7gqbS78cI", "c": [{"t": "Transition opposite side", "v": "https://youtu.be/F4t5ba7q7Gk", "c": [{"t": "Bicep curl", "v": "https://youtu.be/F4t5ba7q7Gk"}, {"t": "Bicep ride", "v": "https://youtu.be/j1Wscyup89w"}, {"t": "C grip", "v": "https://youtu.be/U2Vy92unNgE"}, {"t": "Forearm pressure"}]}, {"t": "Back swim", "v": "https://youtu.be/kQ7gqbS78cI"}, {"t": "Stripping lasso", "v": "https://youtu.be/GdsHijqF0nE"}]}, {"t": "Deep Lasso", "v": "https://youtu.be/K8s4BNprDLM"}, {"t": "Bottom leg reguarding", "v": "https://youtu.be/QkHNNI6OBJQ", "c": [{"t": "Reverse de la riva", "v": "https://youtu.be/QkHNNI6OBJQ"}, {"t": "K Guard", "v": "https://youtu.be/4hngRqXbdd0"}]}, {"t": "Arm Frames", "v": "https://youtu.be/_i4wJYP-ufY"}, {"t": "X guard", "v": "https://youtu.be/kOeZo7YOtEg"}, {"t": "Bringing far leg under arm", "v": "https://youtu.be/cf0JTjYqLaY", "c": [{"t": "Good elbow positioning", "v": "https://youtu.be/cf0JTjYqLaY"}, {"t": "Smash pass", "v": "https://youtu.be/b030JiTk6n0"}]}, {"t": "Foot shoulder frame", "v": "https://youtu.be/bTdaK2nOD8M"}, {"t": "Far shoulder clamp", "v": "https://youtu.be/gxeob3A3OzU"}, {"t": "Elevated hips", "v": "https://youtu.be/zAcqkPKfD6k"}]}]}, {"t": "- Supine Guard Passing", "v": "https://youtu.be/AxZjQX_zAmg", "c": [{"t": "Entries", "v": "https://youtu.be/WuqJwZVi1fQ", "c": [{"t": "- J point"}, {"t": "- Bullfighter", "v": "https://youtu.be/WuqJwZVi1fQ"}]}, {"t": "Maintaing camping control points", "v": "https://youtu.be/AxZjQX_zAmg"}, {"t": "Passes", "v": "https://youtu.be/jfVGYxM8DWM", "c": [{"t": "Toreando", "v": "https://youtu.be/jfVGYxM8DWM"}, {"t": "Head in pocket", "v": "https://youtu.be/BTDNCkCDVZk"}, {"t": "Cross control", "v": "https://youtu.be/zWjF2k9YpdQ"}, {"t": "Scoop grip", "v": "https://youtu.be/fuwhG1nlgdE"}]}, {"t": "Preventing and counter defences", "c": [{"t": "Coil", "v": "https://youtu.be/_K7PVS2V5J0", "c": [{"t": "Duck under pass", "v": "https://youtu.be/_K7PVS2V5J0"}, {"t": "Clearing early coils", "v": "https://youtu.be/-Q0Az-RU2dI"}, {"t": "Back step", "v": "https://youtu.be/nDmdipl_ukQ"}]}, {"t": "Frames", "v": "https://youtu.be/ufTLXamMOok", "c": [{"t": "Shimmying body", "v": "https://youtu.be/ufTLXamMOok"}, {"t": "Cross control pass", "v": "https://youtu.be/Esi57ptb-gY"}, {"t": "Head in pocket pass", "v": "https://youtu.be/sJEs3bd-fSc"}]}, {"t": "K Guard", "v": "https://youtu.be/AwH7GoN-0YE", "c": [{"t": "Single under pass", "v": "https://youtu.be/AwH7GoN-0YE"}]}, {"t": "Knees to chest", "v": "https://youtu.be/WMT0Cz-PBo0", "c": [{"t": "scoop grip", "v": "https://youtu.be/WMT0Cz-PBo0"}, {"t": "Cross control", "v": "https://youtu.be/9xvQoSS68SE"}]}, {"t": "Inverting", "c": [{"t": "Diving crab ride"}, {"t": "Head in belly"}]}]}]}]}, {"t": "- Seated Guard Passing", "c": [{"t": "- Cross Grip", "c": [{"t": "- Collar tie", "c": [{"t": "- Overback"}, {"t": "- North south"}]}]}, {"t": "- High Tripod", "c": [{"t": "- Entries"}, {"t": "- Arm and head position"}, {"t": "- Passes", "c": [{"t": "- Shoving leg down"}, {"t": "- Hip switch"}, {"t": "- Knee cut"}, {"t": "- Stepping over leg"}]}]}, {"t": "- Bodylock", "c": [{"t": "- Bodylock positioning", "c": [{"t": "- One arm deep one shallow"}, {"t": "- Tricep pressure"}, {"t": "- Head centered"}, {"t": "- Hips to ass"}, {"t": "- Pulling in"}]}, {"t": "Entries", "c": [{"t": "Flat back"}, {"t": "Seated guard"}]}, {"t": "- Passes", "c": [{"t": "- Two butterfly hooks", "c": [{"t": "- Stepping over to mount", "c": [{"t": "- mount"}]}, {"t": "- Two legs on one shin", "c": [{"t": "- side control"}]}, {"t": "- Step over to half butterfly", "c": [{"t": "- Half butterfly"}]}]}, {"t": "- Half butterfly", "c": [{"t": "- Turn hips away", "c": [{"t": "- Back step", "c": [{"t": "- side control"}]}, {"t": "- Smash pass", "c": [{"t": "- side control"}]}]}]}, {"t": "- Half guard", "c": [{"t": "- Head post windshield wiper"}, {"t": "- Climb to underhooks", "c": [{"t": "- Half guard passing"}]}]}]}, {"t": "- Dealing with defenses", "c": [{"t": "- Slipping out to closed guard", "c": [{"t": "- Pinning feet"}]}, {"t": "High knee"}, {"t": "Omoplata", "c": [{"t": "- Gogopalata", "c": [{"t": "- Bringing head to pummeling leg side"}]}]}, {"t": "- Framing head", "c": [{"t": "- Stepping over opposite side"}]}, {"t": "- Framing knees", "c": [{"t": "- Using head to create room"}]}, {"t": "- Pushing bodylock down", "c": [{"t": "- Tight bodylock"}]}, {"t": "- Underhooking arm for", "c": [{"t": "Trap arm"}, {"t": "Shoulder crunch defence"}]}]}]}]}, {"t": "- Shin pin", "c": [{"t": "J point"}, {"t": "- Rau drag"}, {"t": "- Arm weave", "c": [{"t": "- Overback", "c": [{"t": "- North South"}]}, {"t": "- Reverse collar tie", "c": [{"t": "- North south passing"}]}]}]}, {"t": "- Reverse de la riva", "c": [{"t": "- Kiss of the dragon", "c": [{"t": "- [Crab ride]"}, {"t": "- [Wrestle up tripod rear bodylock]"}]}]}, {"t": "- De la riva", "c": [{"t": "- Baby bolo", "c": [{"t": "- [crab ride]"}, {"t": "- wrestle up tripod"}]}]}, {"t": "- Knee shield Half guard", "c": [{"t": "- [K hook Body X"}]}, {"t": "- K guard", "c": [{"t": "- [Passing foot across"}, {"t": "Crab Ride Entry]"}]}, {"t": "- Single leg X", "c": [{"t": "- Standing", "c": [{"t": "- Strip foot push knee through step leg passed to pass"}, {"t": "- Strip leg back step"}]}, {"t": "- Seated", "c": [{"t": "- Strip foot on hip hop over push pull out"}]}]}, {"t": "- X guard", "c": [{"t": "- Control foot clear other back step to pass"}, {"t": "- If wrestle up inside switch tripod"}]}, {"t": "- Outside ashi", "c": [{"t": "- Control knee line , feet off hips, knee facing inwards, shoe laces to mat", "c": [{"t": "- Smash pass"}]}, {"t": "- Knee wedge berimbolo", "c": [{"t": "- Back take"}, {"t": "- Reverse half", "c": [{"t": "- Twister hook arm underhook", "c": [{"t": "- Back take"}]}, {"t": "- Chair sit arm underhook"}]}]}]}, {"t": "- Butterfly ashi", "c": [{"t": "- Clear foot back step"}, {"t": "- Spin out if ankle being exposed", "c": [{"t": "- Escape"}, {"t": "- Crab ride"}]}]}, {"t": "- Reverse de la riva", "c": [{"t": "- Back step strip foot step back in", "c": [{"t": "- I point"}]}, {"t": "- Diving to crab x", "c": [{"t": "- Crab ride"}]}]}, {"t": "- De la riva", "c": [{"t": "- Turn knee outward", "c": [{"t": "- Push ankle force headquartes", "c": [{"t": "- Headquarters"}, {"t": "- High tripod"}]}, {"t": "- Knee to flooor"}]}, {"t": "- Diving leg drag", "c": [{"t": "- Hammer down"}]}, {"t": "- Diving crab x", "c": [{"t": "- Crab ride"}]}]}, {"t": "- K guard", "c": [{"t": "- Hips low on foot fight feet", "c": [{"t": "- North south passing"}, {"t": "- Underhook mount"}]}, {"t": "- Crab shin wedge", "c": [{"t": "- Crab ride"}]}]}, {"t": "- Knee shield half guard", "c": [{"t": "- Standard", "c": [{"t": "- Sprawling split squat"}]}, {"t": "- Z guard", "c": [{"t": "- Low head split squat"}]}]}, {"t": "- Half butterfly", "c": [{"t": "- High tripod"}, {"t": "- Bodylock"}]}, {"t": "- Butterfly guard", "c": [{"t": "- Bodylock"}, {"t": "- High tripod"}, {"t": "shoulder crunch", "c": [{"t": "- Early prevention"}, {"t": "- Shoulder crunch defence"}, {"t": "- Double unders", "c": [{"t": "- Posture up pummel underhook"}, {"t": "- Arms above head", "c": [{"t": "- Elbows back", "c": [{"t": "- Posture up pummel underhook"}, {"t": "- Foot on hip", "c": [{"t": "- Hip switch", "c": [{"t": "- Posture up pummel underhook"}]}]}]}]}]}, {"t": "- Wrestle ups"}, {"t": "Subtopic"}]}]}, {"t": "- Half Guard Passing", "c": [{"t": "- Chest to chest", "c": [{"t": "- Upper body controls", "c": [{"t": "- Crossface"}, {"t": "- Double unders"}, {"t": "- Near side underhook"}, {"t": "- Head positioning"}]}, {"t": "- Passes", "c": [{"t": "- Windshield wiper", "c": [{"t": "- Three quarter mount", "c": [{"t": "- Mount"}]}, {"t": "- Knee cut"}]}]}]}]}, {"t": "- Quarter guard", "c": [{"t": "- Side control"}, {"t": "- Dealing with defences", "c": [{"t": "- John wayne sweep", "c": [{"t": "- Knees facing same way"}]}, {"t": "- Kimura", "c": [{"t": "- Early prevention"}, {"t": "- Clearing kimura"}]}, {"t": "- Underhook wrestle up", "c": [{"t": "- overhook back step"}, {"t": "- Early prevention hip clamp"}]}]}, {"t": "- Knee shield", "c": [{"t": "- Split squat camping", "c": [{"t": "- Sprawling", "c": [{"t": "- Rau drag"}, {"t": "- Smashing knee shield", "c": [{"t": "- Shin pin"}, {"t": "- Mount"}]}]}, {"t": "- Tripoding", "c": [{"t": "- Shin pin"}]}, {"t": "- Dealing with defences", "c": [{"t": "- Reverse de la riva", "c": [{"t": "- Back step J point"}]}, {"t": "- K hook", "c": [{"t": "- Hand positioning"}, {"t": "- Elbow blocking"}]}, {"t": "- Arm drag", "c": [{"t": "- Overback"}]}, {"t": "- Underhook wrestle up", "c": [{"t": "- Clampoing hip near side underhook"}]}]}]}]}, {"t": "- Z Guard"}, {"t": "- Half butterfly", "c": [{"t": "- High Tripod", "c": [{"t": "- Arm and head position"}, {"t": "- Passes", "c": [{"t": "- Shoving leg down"}, {"t": "- Hip switch"}, {"t": "- Knee cut"}, {"t": "- Stepping over leg"}]}]}]}]}, {"t": "- Headquarters", "c": [{"t": "- Leg drag", "c": [{"t": "- Side control"}]}, {"t": "- Over/under", "c": [{"t": "- Control points", "c": [{"t": "- Head pressure into hip"}, {"t": "- Straight arms"}]}]}, {"t": "- Smash pass", "c": [{"t": "- Side control"}]}, {"t": "- J point"}, {"t": "- Throwing leg through", "c": [{"t": "- Three quarter mount", "c": [{"t": "- Mount"}]}]}, {"t": "- High tripod"}]}, {"t": "- Closed Guard", "c": [{"t": "- Closed Guard", "c": [{"t": "- Knee through centre"}, {"t": "- Standing ankle grip underhook break", "c": [{"t": "- delariva", "c": [{"t": "- knee too floor"}, {"t": "- smash pass"}]}, {"t": "- k guard", "c": [{"t": "- control leg step out"}, {"t": "- Crab ride shin block"}]}]}, {"t": "- Standing ankle grip push"}]}]}]}, {"title": "Dominant Positions", "color": "#a78bfa", "nodes": [{"t": "- Turtle", "c": [{"t": "- Offence", "c": [{"t": "- Seat belt", "c": [{"t": "- Rolling backtake", "c": [{"t": "- Chair sit", "c": [{"t": "- Seated crab", "c": [{"t": "- Back take"}]}]}, {"t": "- Seated crab", "c": [{"t": "- Back take"}]}]}, {"t": "- Knee wedge", "c": [{"t": "- Peel oppponents ankle", "c": [{"t": "- Single hook"}]}]}]}, {"t": "- Spiral ride", "c": [{"t": "- Near side tip over", "c": [{"t": "- Reverse d\u00e2\u0080\u0099arce"}, {"t": "- Back tale"}]}, {"t": "- Far side", "c": [{"t": "- Head an arn"}, {"t": "- Reverse d\u00e2\u0080\u0099arce"}]}, {"t": "- Near side hook", "c": [{"t": "- Near side tip over"}, {"t": "- Far side rolling backtake"}]}, {"t": "- Far side hook", "c": [{"t": "- Half nelson", "c": [{"t": "- Second hook"}]}]}]}, {"t": "- Crab hook", "c": [{"t": "- Far side crab smash"}, {"t": "- Near side tip over", "c": [{"t": "- Lat hip grip"}, {"t": "- Rear body lock", "c": [{"t": "- Near side tip over"}]}]}]}, {"t": "- Single hook"}]}, {"t": "- Defence", "c": [{"t": "- Keep them outside of legs"}, {"t": "- Blocking space for hooks"}]}, {"t": "- Counters", "c": [{"t": "- Cartwheel"}, {"t": "- Inside switch"}, {"t": "- Fatman roll"}, {"t": "- Granby"}]}]}, {"t": "- Front Headlock", "c": [{"t": "- Chin Strap", "c": [{"t": "- Head in hole", "c": [{"t": "- Offence", "c": [{"t": "- Rear Bodylock"}, {"t": "- Single leg Rear Bodylock"}, {"t": "- Whip by"}]}, {"t": "- Defence"}]}, {"t": "- High elbow guillotine", "c": [{"t": "- Offence", "c": [{"t": "- High elbow guillotine"}]}, {"t": "- Defence", "c": [{"t": "- Arm over high elbow"}, {"t": "- Stripping leg"}]}]}, {"t": "- High wrist guillotine", "c": [{"t": "- Offence", "c": [{"t": "- High wrist guillotine"}]}, {"t": "- Defence", "c": [{"t": "- Strip grip turn head"}]}]}, {"t": "- Anaconda", "c": [{"t": "- Offence", "c": [{"t": "- Anaconda"}]}, {"t": "- Defence", "c": [{"t": "- leg and arm post"}]}]}, {"t": "- Boltcutter", "c": [{"t": "- Defence", "c": [{"t": "- Push arm off head"}]}]}, {"t": "- D\u00e2\u0080\u0099arce", "c": [{"t": "- Offence", "c": [{"t": "- Bolt cutter"}, {"t": "- Turtle"}]}, {"t": "- Defence", "c": [{"t": "- Push arm off", "c": [{"t": "- Lay to back"}]}, {"t": "extend arm"}]}]}, {"t": "- Japanese Necktie", "c": [{"t": "- Offence", "c": [{"t": "- Bolt cutter"}]}, {"t": "- Defence", "c": [{"t": "- Free leg"}, {"t": "- Hide foot"}, {"t": "- Clear bolt cutter"}]}]}]}, {"t": "- Hands Locked", "c": [{"t": "- High elbow guillotine", "c": [{"t": "- Offence", "c": [{"t": "- Sit back"}, {"t": "- Roll through"}]}, {"t": "- Defence", "c": [{"t": "- Arm over high elbow"}, {"t": "- Stripping leg"}]}]}, {"t": "- High wrist guillotine", "c": [{"t": "- Offence"}, {"t": "- Defence"}]}, {"t": "- Anaconda", "c": [{"t": "- Offence", "c": [{"t": "- Anaconda"}]}, {"t": "- Defence", "c": [{"t": "- Arm and leg post"}]}]}, {"t": "- Boltcutter", "c": [{"t": "- Offence", "c": [{"t": "- D\u00e2\u0080\u0099arce"}, {"t": "- Japanese Necktie", "c": [{"t": "- Hook leg"}]}]}, {"t": "- Defence", "c": [{"t": "- Push off head"}]}]}, {"t": "- D\u00e2\u0080\u0099arce", "c": [{"t": "- Offence", "c": [{"t": "- Bolt cutter"}, {"t": "- Turtle"}]}, {"t": "- Defence", "c": [{"t": "- Escape arm"}]}]}, {"t": "- Japanese Necktie", "c": [{"t": "- Offence", "c": [{"t": "- Bolt cutter"}, {"t": "Hook leg"}]}, {"t": "- Defence", "c": [{"t": "- Clear bolt cutter"}, {"t": "- Hide foot"}]}]}, {"t": "- Head pinch", "c": [{"t": "- Offence", "c": [{"t": "- Anaconda"}]}, {"t": "- Defence", "c": [{"t": "- Leg up"}]}]}, {"t": "- Headspin", "c": [{"t": "- Offence", "c": [{"t": "- Anaconda"}]}, {"t": "- Defence", "c": [{"t": "- Leg and arm post"}]}]}]}]}, {"t": "- Mount", "c": [{"t": "- Head arm", "c": [{"t": "turtles", "c": [{"t": "- Reverse darce"}]}, {"t": "arm to mat", "c": [{"t": "switch armsweave armknee through", "c": [{"t": "- Mounted triangle"}, {"t": "- S mount", "c": [{"t": "- Arm bar"}]}]}]}]}, {"t": "- Control", "c": [{"t": "- Offence", "c": [{"t": "- Squeezing legs"}, {"t": "- Postured up"}, {"t": "- Feet position"}, {"t": "- Isolating arm"}]}, {"t": "- Defence", "c": [{"t": "- Kipping escape"}, {"t": "- Foot trap"}]}]}]}, {"t": "- Side Control", "c": [{"t": "- Defence", "c": [{"t": "- Shoulder frame", "c": [{"t": "- Dig Underhook", "c": [{"t": "- Wrestle up single leg"}, {"t": "- wrestle up dog fight"}]}, {"t": "- Bring knee shield back in"}]}, {"t": "- Knee frame"}]}, {"t": "- Offence", "c": [{"t": "- North South Choke"}, {"t": "- Darce Choke"}, {"t": "- Far side arm bar"}, {"t": "- Von flue"}, {"t": "- Near side Kimura", "c": [{"t": "- Kimura"}, {"t": "- Tarikoplata"}, {"t": "- Arm bar"}, {"t": "- Back take"}]}, {"t": "- Triangle"}]}, {"t": "to mount", "c": [{"t": "- High step to mount"}, {"t": "- Gift wrap to back"}, {"t": "- Seat belt to back"}, {"t": "- Control points", "c": [{"t": "- Tight waist"}, {"t": "- Near side underhook"}, {"t": "- Crossface"}]}]}, {"t": "- Transitions", "c": [{"t": "- Knee on belly"}]}]}, {"t": "- North South", "c": [{"t": "- Control", "c": [{"t": "- Arms inside"}, {"t": "- Behind tricep grips"}, {"t": "- Collar tie"}, {"t": "- Overback"}, {"t": "- Reverse bodylock"}]}, {"t": "- Transitions", "c": [{"t": "- Side control"}, {"t": "- Back", "c": [{"t": "- Gift wrap"}, {"t": "- Kimura"}]}, {"t": "- Front headlock"}, {"t": "- Turtle"}]}, {"t": "- Offence", "c": [{"t": "- North south choke"}, {"t": "- Kimura", "c": [{"t": "- Kimura"}, {"t": "- Tarikoplata"}, {"t": "- Arm bar"}, {"t": "- Back take"}]}, {"t": "- D\u00e2\u0080\u0099arce"}]}, {"t": "- Defence", "c": [{"t": "- Frames"}, {"t": "- Coil"}, {"t": "- Far shoulder foot hook"}, {"t": "- wrestle up"}, {"t": "- turtle"}]}]}, {"t": "- Back Control"}]}, {"title": "Guard playing", "color": "#47c8ff", "nodes": [{"t": "- Seated Guard", "c": [{"t": "- Cross Grip", "c": [{"t": "- Collar tie", "c": [{"t": "- Overback"}, {"t": "- North south"}]}]}, {"t": "- High Tripod", "c": [{"t": "- Entries"}, {"t": "- Arm and head position"}, {"t": "- Passes", "c": [{"t": "- Shoving leg down"}, {"t": "- Hip switch"}, {"t": "- Knee cut"}, {"t": "- Stepping over leg"}]}]}, {"t": "- Bodylock", "c": [{"t": "- Bodylock positioning", "c": [{"t": "- One arm deep one shallow"}, {"t": "- Tricep pressure"}, {"t": "- Head centered"}, {"t": "- Hips to ass"}, {"t": "- Pulling in"}]}, {"t": "- Passes", "c": [{"t": "- Two butterfly hooks", "c": [{"t": "- Stepping over to mount", "c": [{"t": "- mount"}]}, {"t": "- Two legs on one shin", "c": [{"t": "- side control"}]}, {"t": "- Step over to half butterfly", "c": [{"t": "- Half butterfly"}]}]}, {"t": "- Half butterfly", "c": [{"t": "- Turn hips away", "c": [{"t": "- Back step", "c": [{"t": "- side control"}]}, {"t": "- Smash pass", "c": [{"t": "- side control"}]}]}]}, {"t": "- Half guard", "c": [{"t": "- Head post windshield wiper"}, {"t": "- Climb to underhooks", "c": [{"t": "- Half guard passing"}]}]}]}, {"t": "- Dealing with defenses", "c": [{"t": "- Slipping out to closed guard", "c": [{"t": "- Pinning feet"}]}, {"t": "- Gogopalata", "c": [{"t": "- Bringing head to pummeling leg side"}]}, {"t": "- Framing head", "c": [{"t": "- Stepping over opposite side"}]}, {"t": "- Framing knees", "c": [{"t": "- Using head to create room"}]}, {"t": "- Pushing bodylock down", "c": [{"t": "- Tight bodylock"}]}, {"t": "- Underhooking arm for"}]}]}]}, {"t": "- Shin pin", "c": [{"t": "J point"}, {"t": "- Rau drag"}, {"t": "- Arm weave", "c": [{"t": "- Overback", "c": [{"t": "- North South"}]}, {"t": "- Reverse collar tie", "c": [{"t": "- North south passing"}]}]}]}, {"t": "- Reverse de la riva", "c": [{"t": "- Kiss of the dragon", "c": [{"t": "- [Crab ride]"}, {"t": "- [Wrestle up tripod rear bodylock]"}]}]}, {"t": "- De la riva", "c": [{"t": "- Baby bolo", "c": [{"t": "- [crab ride]"}, {"t": "- wrestle up tripod"}]}]}, {"t": "- Knee shield Half guard", "c": [{"t": "- [K hook Body X"}]}, {"t": "- K guard", "c": [{"t": "- [Passing foot across"}, {"t": "Crab Ride Entry]"}]}, {"t": "- Single leg X", "c": [{"t": "- Standing", "c": [{"t": "- Strip foot push knee through step leg passed to pass"}, {"t": "- Strip leg back step"}]}, {"t": "- Seated", "c": [{"t": "- Strip foot on hip hop over push pull out"}]}]}, {"t": "- X guard", "c": [{"t": "- Control foot clear other back step to pass"}, {"t": "- If wrestle up inside switch tripod"}]}, {"t": "- Outside ashi", "c": [{"t": "- Control knee line , feet off hips, knee facing inwards, shoe laces to mat", "c": [{"t": "- Smash pass"}]}, {"t": "- Knee wedge berimbolo", "c": [{"t": "- Back take"}, {"t": "- Reverse half", "c": [{"t": "- Twister hook arm underhook", "c": [{"t": "- Back take"}]}, {"t": "- Chair sit arm underhook"}]}]}]}, {"t": "- Butterfly ashi", "c": [{"t": "- Clear foot back step"}, {"t": "- Spin out if ankle being exposed", "c": [{"t": "- Escape"}, {"t": "- Crab ride"}]}]}, {"t": "- Reverse de la riva", "c": [{"t": "- Back step strip foot step back in", "c": [{"t": "- I point"}]}, {"t": "- Diving to crab x", "c": [{"t": "- Crab ride"}]}]}, {"t": "- De la riva", "c": [{"t": "- Turn knee outward", "c": [{"t": "- Push ankle force headquartes", "c": [{"t": "- Headquarters"}, {"t": "- High tripod"}]}, {"t": "- Knee to flooor"}]}, {"t": "- Diving leg drag", "c": [{"t": "- Hammer down"}]}, {"t": "- Diving crab x", "c": [{"t": "- Crab ride"}]}]}, {"t": "- K guard", "c": [{"t": "- Hips low on foot fight feet", "c": [{"t": "- North south passing"}, {"t": "- Underhook mount"}]}, {"t": "- Crab shin wedge", "c": [{"t": "- Crab ride"}]}]}, {"t": "- Knee shield half guard", "c": [{"t": "- Standard", "c": [{"t": "- Sprawling split squat"}]}, {"t": "- Z guard", "c": [{"t": "- Low head split squat"}]}]}, {"t": "- Half butterfly", "c": [{"t": "- High tripod"}, {"t": "- Bodylock"}]}, {"t": "- Butterfly guard", "c": [{"t": "- Bodylock"}, {"t": "- High tripod"}, {"t": "shoulder crunch", "c": [{"t": "- Early prevention"}, {"t": "- Shoulder crunch defence"}, {"t": "- Double unders", "c": [{"t": "- Posture up pummel underhook"}, {"t": "- Arms above head", "c": [{"t": "- Elbows back", "c": [{"t": "- Posture up pummel underhook"}, {"t": "- Foot on hip", "c": [{"t": "- Hip switch", "c": [{"t": "- Posture up pummel underhook"}]}]}]}]}]}, {"t": "- Wrestle ups"}, {"t": "Subtopic"}]}]}, {"t": "- Half Guard Passing", "c": [{"t": "- Chest to chest", "c": [{"t": "- Upper body controls", "c": [{"t": "- Crossface"}, {"t": "- Double unders"}, {"t": "- Near side underhook"}, {"t": "- Head positioning"}]}, {"t": "- Passes", "c": [{"t": "- Windshield wiper", "c": [{"t": "- Three quarter mount", "c": [{"t": "- Mount"}]}, {"t": "- Knee cut"}]}]}]}]}, {"t": "- Quarter guard", "c": [{"t": "- Side control"}, {"t": "- Dealing with defences", "c": [{"t": "- John wayne sweep", "c": [{"t": "- Knees facing same way"}]}, {"t": "- Kimura", "c": [{"t": "- Early prevention"}, {"t": "- Clearing kimura"}]}, {"t": "- Underhook wrestle up", "c": [{"t": "- overhook back step"}, {"t": "- Early prevention hip clamp"}]}]}, {"t": "- Knee shield", "c": [{"t": "- Split squat camping", "c": [{"t": "- Sprawling", "c": [{"t": "- Rau drag"}, {"t": "- Smashing knee shield", "c": [{"t": "- Shin pin"}, {"t": "- Mount"}]}]}, {"t": "- Tripoding", "c": [{"t": "- Shin pin"}]}, {"t": "- Dealing with defences", "c": [{"t": "- Reverse de la riva", "c": [{"t": "- Back step J point"}]}, {"t": "- K hook", "c": [{"t": "- Hand positioning"}, {"t": "- Elbow blocking"}]}, {"t": "- Arm drag", "c": [{"t": "- Overback"}]}, {"t": "- Underhook wrestle up", "c": [{"t": "- Clampoing hip near side underhook"}]}]}]}]}, {"t": "- Z Guard"}, {"t": "- Half butterfly", "c": [{"t": "- High Tripod", "c": [{"t": "- Arm and head position"}, {"t": "- Passes", "c": [{"t": "- Shoving leg down"}, {"t": "- Hip switch"}, {"t": "- Knee cut"}, {"t": "- Stepping over leg"}]}]}]}]}, {"t": "- Headquarters", "c": [{"t": "- Leg drag", "c": [{"t": "- Side control"}]}, {"t": "- Over/under", "c": [{"t": "- Control points", "c": [{"t": "- Head pressure into hip"}, {"t": "- Straight arms"}]}]}, {"t": "- Smash pass", "c": [{"t": "- Side control"}]}, {"t": "- J point"}, {"t": "- Throwing leg through", "c": [{"t": "- Three quarter mount", "c": [{"t": "- Mount"}]}]}, {"t": "- High tripod"}]}, {"t": "- Closed Guard", "c": [{"t": "- Closed Guard", "c": [{"t": "- Knee through centre"}, {"t": "- Standing ankle grip underhook break", "c": [{"t": "- delariva", "c": [{"t": "- knee too floor"}, {"t": "- smash pass"}]}, {"t": "- k guard", "c": [{"t": "- control leg step out"}, {"t": "- Crab ride shin block"}]}]}, {"t": "- Standing ankle grip push"}]}]}]}, {"title": "Crab ride & Berimibolo", "color": "#34d399", "nodes": [{"t": "- Crab ride & berimbolo", "v": "https://youtu.be/_ZX2QpYZsYY", "c": [{"t": "What is crab ride?", "v": "https://youtu.be/_ZX2QpYZsYY"}, {"t": "What is a berimbolo?"}, {"t": "Entries", "c": [{"t": "Inverted North south"}]}, {"t": "Foundations", "v": "https://youtu.be/fKgXnrPQd-8", "c": [{"t": "Crab x", "v": "https://youtu.be/SeCBJnjZid4", "c": [{"t": "Knee staple", "v": "https://youtu.be/SeCBJnjZid4"}]}, {"t": "- Leg drag", "v": "https://youtu.be/fKgXnrPQd-8"}, {"t": "Hammer down", "v": "https://youtu.be/TcmqIqhDiUA"}, {"t": "- Crab knee wedge", "c": [{"t": "- Back take"}]}, {"t": "- Crab reverse x", "v": "https://youtu.be/qXd_DfldSrY", "c": [{"t": "- Leg drag", "v": "https://youtu.be/qXd_DfldSrY"}, {"t": "Knee staple", "v": "https://youtu.be/qI5yVJIFRwI"}, {"t": "- Hammer down", "c": [{"t": "- Crab knee wedge", "c": [{"t": "- Back take"}]}]}]}, {"t": "- Crab shin wedge", "v": "https://youtu.be/cai4w1F178U", "c": [{"t": "- Invert crab x", "c": [{"t": "- Knee staple", "c": [{"t": "- Side control"}]}, {"t": "- Crab knee wedge", "c": [{"t": "- Back take"}]}]}, {"t": "- Crab shin wedge", "v": "https://youtu.be/cai4w1F178U"}]}, {"t": "- Knee staple", "c": [{"t": "- Side control"}]}, {"t": "- Knee wedge berimbolo", "c": [{"t": "- Back take"}, {"t": "- Reverse half", "c": [{"t": "- Hook far arm", "c": [{"t": "- Roll opponent back through with twister hook", "c": [{"t": "- Back take"}]}, {"t": "- Chair sit for back", "c": [{"t": "- Back take"}]}]}]}, {"t": "- Far arm underhook twister hook back take", "c": [{"t": "- Back take"}]}, {"t": "- Far arm chair sit back take", "c": [{"t": "- Back take"}]}]}, {"t": "- Twister hook battle", "v": "https://youtu.be/RzGu0-anSM4", "c": [{"t": "- Kick through back take", "v": "https://youtu.be/RzGu0-anSM4"}, {"t": "- Rebolo off losing kick through", "v": "https://youtu.be/cYjpcWI_geI"}, {"t": "Double leg counter", "v": "https://youtu.be/GmfoEJ_qebg"}]}]}]}]}];
+window.SECTIONS = [{"title": "Wrestling forBrazillian Jiu Jitsu", "color": "#e8ff47", "nodes": [{"t": "Collar Tie", "c": [{"t": "Entries", "c": [{"t": "Outside tie"}, {"t": "Collar tie"}]}, {"t": "Offence", "c": [{"t": "Brush by", "n": "Most effective when opponent is heavy on collar tie", "c": [{"t": "Disengaging"}, {"t": "Rear body lock"}, {"t": "Snatch head inside single"}, {"t": "Snatch head outside single"}]}, {"t": "Throw by", "c": [{"t": "Head to head"}, {"t": "Head to shoulder"}, {"t": "Outside tie"}]}, {"t": "Snap downs", "c": [{"t": "Collar Tie and Inside Tie Snap Down"}, {"t": "Overtie snap"}, {"t": "Brush by snap"}]}, {"t": "2 on 1", "c": [{"t": "Offence", "c": [{"t": "Climb to back"}, {"t": "Snatch single"}, {"t": "ankle pick"}, {"t": "front headlock"}]}, {"t": "Defence", "c": [{"t": "Framing on head"}, {"t": "Pulling far elbow", "c": [{"t": "Underhook"}]}]}]}]}]}, {"t": "Wrestling hand fighting positions", "c": [{"t": "Inside Tie", "c": [{"t": "Inside Tie to Sweep Single"}]}, {"t": "Over/Under", "c": [{"t": "Arm drag"}, {"t": "Sweep single"}, {"t": "Snatch single"}, {"t": "Inside leg trip"}, {"t": "Inside leg trip to scissor takedown"}, {"t": "Knee tap"}]}, {"t": "Underhook", "c": [{"t": "Head inside double"}, {"t": "run the pipe"}, {"t": "foot lift"}, {"t": "Side bodylock", "c": [{"t": "Front side uchimata"}, {"t": "Lift and dump"}]}, {"t": "Rear bodylock throwby", "c": [{"t": "Mat return"}, {"t": "Cran ride entry", "c": [{"t": "Back take"}, {"t": "Knee staple"}]}, {"t": "Lift and dump"}]}, {"t": "Snatch head inside Single"}, {"t": "Knee tap"}, {"t": "Front headlock"}, {"t": "Snatch head outside sngle"}, {"t": "head inside single"}, {"t": "head outside single"}]}, {"t": "Outside tie", "c": [{"t": "Knee Pull Sweep Single"}, {"t": "throw by"}, {"t": "collar tie throw by"}, {"t": "head inside single"}, {"t": "double leg"}, {"t": "brush by"}, {"t": "2 on 1"}]}]}, {"t": "Rear Bodylock", "c": [{"t": "Turtle Rear Bodylock", "c": [{"t": "Spiral ride", "c": [{"t": "Near side hook", "c": [{"t": "Far side roll", "c": [{"t": "Hip pinch", "c": [{"t": "Back take"}]}]}]}, {"t": "Far side hook", "c": [{"t": "Second hook", "c": [{"t": "Back tke"}]}]}, {"t": "Opponent rolls far side", "c": [{"t": "Head arm choke"}]}]}, {"t": "Seatbelt", "c": [{"t": "Rolling backtake", "c": [{"t": "Seated rear bodylock", "c": [{"t": "Back take"}]}]}, {"t": "Hooks in", "c": [{"t": "Backtake"}]}]}, {"t": "Body lock", "c": [{"t": "Knee wedge hook in", "c": [{"t": "Far side roll", "c": [{"t": "Hip pinch", "c": [{"t": "Backtake"}]}]}]}, {"t": "Crab hook", "c": [{"t": "Seated rear body lock", "c": [{"t": "Back take"}]}]}]}]}, {"t": "Tripod Rear Bodylock", "c": [{"t": "Throwing hooks in", "c": [{"t": "Weight on hands", "c": [{"t": "Half nelson", "c": [{"t": "Backtake"}]}, {"t": "2 on 1", "c": [{"t": "Back take"}]}]}, {"t": "Weight on feet", "c": [{"t": "Rear naked choke"}, {"t": "Underhooking knee", "c": [{"t": "Suloev stretch"}]}, {"t": "Half nelson", "c": [{"t": "Shoulder stretch"}]}]}]}, {"t": "Elbow in thigh takedown", "c": [{"t": "Turtle Rear bodylock"}]}, {"t": "Feet behind heels", "c": [{"t": "Crab ride"}]}]}, {"t": "Standing Rear Bodylock", "c": [{"t": "Defence", "c": [{"t": "Grip Breaks", "c": [{"t": "Grip Break 1"}, {"t": "Grip Break 2"}, {"t": "Grip Break 3"}]}, {"t": "Counters", "c": [{"t": "Uchi Mata Counter Front Headlock"}, {"t": "Uchi Mata Counter Ankle Pick"}, {"t": "Uchi Mata Throw Counter"}, {"t": "Chin Push Counter to Front Bodylock"}, {"t": "Inside Leg Trip Counter to Front Bodylock"}, {"t": "Lift and Sweep Counter to Side Bodylock"}]}]}, {"t": "Offence", "c": [{"t": "Mat return"}, {"t": "Front Side Uchi Mata from Side Bodylock"}, {"t": "Lower Back Crunch from Front Bodylock"}, {"t": "Crab Ride Entry"}]}, {"t": "c"}]}]}, {"t": "Head Inside Single", "c": [{"t": "Offence", "c": [{"t": "Foot Lift Takedown"}, {"t": "Shin Whizzer", "c": [{"t": "Limp Arm Counter to Shin Whizzer"}, {"t": "Running the Pipe Counter to Shin Whizzer"}, {"t": "Head Inside Double Leg Counter to Shin Whizzer"}, {"t": "Collar Tie Ankle Tap Counter to Shin Whizzer"}]}, {"t": "Tripod Defence", "c": [{"t": "Rear Body Lock counter to Tripod Defence"}]}, {"t": "Near Side Block", "c": [{"t": "Knock Over Rear Bodylock counter to Near Side Block Tripod"}]}, {"t": "Iranian", "c": [{"t": "Iranian counter to Sprawl"}, {"t": "Iranian to Rear Bodylock counter to Sprawl"}]}, {"t": "Sprawl", "c": [{"t": "Shelfing the Leg counter to Sprawl"}, {"t": "Shelfing leg through Grounded Shin Whizzer"}, {"t": "Cut Back Single Leg counter to Sprawl"}]}]}, {"t": "Defence", "c": [{"t": "Near Side Block", "c": [{"t": "Tripod Defence Near Side Block"}, {"t": "Bail out"}]}, {"t": "Shin Whizzer", "c": [{"t": "Shin Whizzer Front Headlock Counter"}, {"t": "Grip Break Defence from Shin Whizzer"}]}, {"t": "Tripod Defence", "c": [{"t": "Inside Switch Tripod Defence"}, {"t": "Bail out"}]}, {"t": "Iranian", "c": [{"t": "Near Side Block counter to Iranian"}, {"t": "Bail out"}]}, {"t": "Sprawl", "c": [{"t": "Grounded Shin Whizzer"}, {"t": "How to Sprawl"}, {"t": "Sprawl to Belly Whizzer"}]}]}]}, {"t": "Head Outside Single", "c": [{"t": "Running the pipe"}, {"t": "Double leg", "c": [{"t": "Hands locked"}, {"t": "Split grip", "c": [{"t": "complete double"}, {"t": "Cut to rear body lock", "c": [{"t": "tripod breakdown"}]}]}]}, {"t": "Crackdown"}]}, {"t": "Double Leg"}, {"t": "Grounded 50/50"}]}, {"title": "Guard Passing", "color": "#ff6b35", "nodes": [{"t": "Outside Camping", "c": [{"t": "J point", "c": [{"t": "Entries", "c": [{"t": "Seated guard", "c": [{"t": "Hip post"}, {"t": "Collar tie"}]}, {"t": "Supine guard"}]}, {"t": "Maintaing Camping Control points", "c": [{"t": "Shin pin"}, {"t": "Thigh grip"}, {"t": "Head positioning"}, {"t": "Forearm hip control"}, {"t": "Calf grip"}, {"t": "Foot grip"}, {"t": "Hip hinge"}]}, {"t": "Passes", "c": [{"t": "Toerando", "c": [{"t": "Side control"}]}, {"t": "Leg drag", "c": [{"t": "Side control"}]}, {"t": "North South", "c": [{"t": "Side control"}]}, {"t": "Sprawl", "c": [{"t": "Side control"}]}]}, {"t": "Preventing andcountering defences", "c": [{"t": "Lasso", "c": [{"t": "Transition opposite side", "c": [{"t": "Bicep curl"}, {"t": "Bicep ride"}, {"t": "C grip"}, {"t": "Forearm pressure"}]}, {"t": "Back swim", "c": [{"t": "North South"}]}, {"t": "Stripping lasso", "c": [{"t": "J point"}]}]}, {"t": "Deep Lasso", "c": [{"t": "North South"}]}, {"t": "Bottom leg reguarding", "c": [{"t": "Reverse de la riva", "c": [{"t": "J point"}]}, {"t": "K Guard", "c": [{"t": "Side control"}]}]}, {"t": "Arm Frames", "c": [{"t": "Clearing 2 frames on left shoulder"}, {"t": "Clearing 2 frames on right shoulder"}, {"t": "Clearing frames on each shoulder"}, {"t": "Head frame"}]}, {"t": "X guard"}, {"t": "Bringing far leg under arm", "c": [{"t": "Good elbow positioning"}, {"t": "Smash pass", "c": [{"t": "Side control"}]}]}, {"t": "Foot shoulder frame", "c": [{"t": "J point"}]}, {"t": "Far shoulder clamp", "c": [{"t": "J point"}]}, {"t": "Elevated hips", "c": [{"t": "Side control"}]}]}]}, {"t": "Supine Guard Passing", "c": [{"t": "Entries", "c": [{"t": "J point"}, {"t": "Bullfighter"}]}, {"t": "Maintaing camping control points", "c": [{"t": "Collar tie"}, {"t": "Ankle grips"}, {"t": "Drop to knees"}, {"t": "Tricep grip"}, {"t": "Overback"}]}, {"t": "Passes", "c": [{"t": "Toreando"}, {"t": "Head in pocket"}, {"t": "Cross control"}, {"t": "Scoop grip"}]}, {"t": "Preventing and counter defences", "c": [{"t": "Coil", "c": [{"t": "Duck under pass"}, {"t": "Clearing early coils"}, {"t": "Back step"}]}, {"t": "Frames", "c": [{"t": "Shimmying body"}, {"t": "Cross control pass"}, {"t": "Head in pocket pass"}]}, {"t": "K Guard", "c": [{"t": "Single under pass"}]}, {"t": "Knees to chest", "c": [{"t": "scoop grip"}, {"t": "Cross control"}]}, {"t": "Inverting", "c": [{"t": "Diving crab ride"}, {"t": "Head in belly"}]}]}]}]}, {"t": "Seated Guard Passing", "c": [{"t": "Cross Grip", "c": [{"t": "Collar tie", "c": [{"t": "Overback"}, {"t": "North south"}]}]}, {"t": "High Tripod", "c": [{"t": "Entries"}, {"t": "Arm and head position"}, {"t": "Passes", "c": [{"t": "Shoving leg down"}, {"t": "Hip switch"}, {"t": "Knee cut"}, {"t": "Stepping over leg"}]}]}, {"t": "Bodylock", "c": [{"t": "Bodylock positioning", "c": [{"t": "One arm deep one shallow"}, {"t": "Tricep pressure"}, {"t": "Head centered"}, {"t": "Hips to ass"}, {"t": "Pulling in"}]}, {"t": "Entries", "c": [{"t": "Flat back"}, {"t": "Seated guard"}]}, {"t": "Passes", "c": [{"t": "Two butterfly hooks", "c": [{"t": "Stepping over to mount", "c": [{"t": "mount"}]}, {"t": "Two legs on one shin", "c": [{"t": "side control"}]}, {"t": "Step over to half butterfly", "c": [{"t": "Half butterfly"}]}]}, {"t": "Half butterfly", "c": [{"t": "Turn hips away", "c": [{"t": "Back step", "c": [{"t": "side control"}]}, {"t": "Smash pass", "c": [{"t": "side control"}]}]}]}, {"t": "Half guard", "c": [{"t": "Head post windshield wiper"}, {"t": "Climb to underhooks", "c": [{"t": "Half guard passing"}]}]}]}, {"t": "Dealing with defenses", "c": [{"t": "Slipping out to closed guard", "c": [{"t": "Pinning feet"}]}, {"t": "High knee"}, {"t": "Omoplata", "c": [{"t": "Gogopalata", "c": [{"t": "Bringing head to pummeling leg side"}]}]}, {"t": "Framing head", "c": [{"t": "Stepping over opposite side"}]}, {"t": "Framing knees", "c": [{"t": "Using head to create room"}]}, {"t": "Pushing bodylock down", "c": [{"t": "Tight bodylock"}]}, {"t": "Underhooking arm for", "c": [{"t": "Trap arm"}, {"t": "Shoulder crunch defence"}]}]}]}]}, {"t": "Shin pin", "c": [{"t": "J point"}, {"t": "Rau drag"}, {"t": "Arm weave", "c": [{"t": "Overback", "c": [{"t": "North South"}]}, {"t": "Reverse collar tie", "c": [{"t": "North south passing"}]}]}]}, {"t": "Reverse de la riva", "c": [{"t": "Kiss of the dragon", "c": [{"t": "Crab ride"}, {"t": "Wrestle up tripod rear bodylock"}]}]}, {"t": "De la riva", "c": [{"t": "Baby bolo", "c": [{"t": "crab ride"}, {"t": "wrestle up tripod"}]}]}, {"t": "Knee shield Half guard", "c": [{"t": "[K hook Body X"}]}, {"t": "K guard", "c": [{"t": "[Passing foot across"}, {"t": "Crab Ride Entry]"}]}, {"t": "Single leg X", "c": [{"t": "Standing", "c": [{"t": "Strip foot push knee through step leg passed to pass"}, {"t": "Strip leg back step"}]}, {"t": "Seated", "c": [{"t": "Strip foot on hip hop over push pull out"}]}]}, {"t": "X guard", "c": [{"t": "Control foot clear other back step to pass"}, {"t": "If wrestle up inside switch tripod"}]}, {"t": "Outside ashi", "c": [{"t": "Control knee line , feet off hips, knee facing inwards, shoe laces to mat", "c": [{"t": "Smash pass"}]}, {"t": "Knee wedge berimbolo", "c": [{"t": "Back take"}, {"t": "Reverse half", "c": [{"t": "Twister hook arm underhook", "c": [{"t": "Back take"}]}, {"t": "Chair sit arm underhook"}]}]}]}, {"t": "Butterfly ashi", "c": [{"t": "Clear foot back step"}, {"t": "Spin out if ankle being exposed", "c": [{"t": "Escape"}, {"t": "Crab ride"}]}]}, {"t": "Reverse de la riva", "c": [{"t": "Back step strip foot step back in", "c": [{"t": "I point"}]}, {"t": "Diving to crab x", "c": [{"t": "Crab ride"}]}]}, {"t": "De la riva", "c": [{"t": "Turn knee outward", "c": [{"t": "Push ankle force headquartes", "c": [{"t": "Headquarters"}, {"t": "High tripod"}]}, {"t": "Knee to flooor"}]}, {"t": "Diving leg drag", "c": [{"t": "Hammer down"}]}, {"t": "Diving crab x", "c": [{"t": "Crab ride"}]}]}, {"t": "K guard", "c": [{"t": "Hips low on foot fight feet", "c": [{"t": "North south passing"}, {"t": "Underhook mount"}]}, {"t": "Crab shin wedge", "c": [{"t": "Crab ride"}]}]}, {"t": "Knee shield half guard", "c": [{"t": "Standard", "c": [{"t": "Sprawling split squat"}]}, {"t": "Z guard", "c": [{"t": "Low head split squat"}]}]}, {"t": "Half butterfly", "c": [{"t": "High tripod"}, {"t": "Bodylock"}]}, {"t": "Butterfly guard", "c": [{"t": "Bodylock"}, {"t": "High tripod"}, {"t": "shoulder crunch", "c": [{"t": "Early prevention"}, {"t": "Shoulder crunch defence"}, {"t": "Double unders", "c": [{"t": "Posture up pummel underhook"}, {"t": "Arms above head", "c": [{"t": "Elbows back", "c": [{"t": "Posture up pummel underhook"}, {"t": "Foot on hip", "c": [{"t": "Hip switch", "c": [{"t": "Posture up pummel underhook"}]}]}]}]}]}, {"t": "Wrestle ups"}, {"t": "Subtopic"}]}]}, {"t": "Half Guard Passing", "c": [{"t": "Chest to chest", "c": [{"t": "Upper body controls", "c": [{"t": "Crossface"}, {"t": "Double unders"}, {"t": "Near side underhook"}, {"t": "Head positioning"}]}, {"t": "Passes", "c": [{"t": "Windshield wiper", "c": [{"t": "Three quarter mount", "c": [{"t": "Mount"}]}, {"t": "Knee cut"}]}]}]}]}, {"t": "Quarter guard", "c": [{"t": "Side control"}, {"t": "Dealing with defences", "c": [{"t": "John wayne sweep", "c": [{"t": "Knees facing same way"}]}, {"t": "Kimura", "c": [{"t": "Early prevention"}, {"t": "Clearing kimura"}]}, {"t": "Underhook wrestle up", "c": [{"t": "overhook back step"}, {"t": "Early prevention hip clamp"}]}]}, {"t": "Knee shield", "c": [{"t": "Split squat camping", "c": [{"t": "Sprawling", "c": [{"t": "Rau drag"}, {"t": "Smashing knee shield", "c": [{"t": "Shin pin"}, {"t": "Mount"}]}]}, {"t": "Tripoding", "c": [{"t": "Shin pin"}]}, {"t": "Dealing with defences", "c": [{"t": "Reverse de la riva", "c": [{"t": "Back step J point"}]}, {"t": "K hook", "c": [{"t": "Hand positioning"}, {"t": "Elbow blocking"}]}, {"t": "Arm drag", "c": [{"t": "Overback"}]}, {"t": "Underhook wrestle up", "c": [{"t": "Clampoing hip near side underhook"}]}]}]}]}, {"t": "Z Guard"}, {"t": "Half butterfly", "c": [{"t": "High Tripod", "c": [{"t": "Arm and head position"}, {"t": "Passes", "c": [{"t": "Shoving leg down"}, {"t": "Hip switch"}, {"t": "Knee cut"}, {"t": "Stepping over leg"}]}]}]}]}, {"t": "Headquarters", "c": [{"t": "Leg drag", "c": [{"t": "Side control"}]}, {"t": "Over/under", "c": [{"t": "Control points", "c": [{"t": "Head pressure into hip"}, {"t": "Straight arms"}]}]}, {"t": "Smash pass", "c": [{"t": "Side control"}]}, {"t": "J point"}, {"t": "Throwing leg through", "c": [{"t": "Three quarter mount", "c": [{"t": "Mount"}]}]}, {"t": "High tripod"}]}, {"t": "Closed Guard", "c": [{"t": "Closed Guard", "c": [{"t": "Knee through centre"}, {"t": "Standing ankle grip underhook break", "c": [{"t": "delariva", "c": [{"t": "knee too floor"}, {"t": "smash pass"}]}, {"t": "k guard", "c": [{"t": "control leg step out"}, {"t": "Crab ride shin block"}]}]}, {"t": "Standing ankle grip push"}]}]}]}, {"title": "Crab ride & Berimibolo", "color": "#a78bfa", "nodes": [{"t": "Crab ride & berimbolo", "c": [{"t": "What is crab ride?"}, {"t": "What is a berimbolo?"}, {"t": "Entries", "c": [{"t": "Inverted North south"}]}, {"t": "Foundations", "c": [{"t": "Crab x", "c": [{"t": "Knee staple"}]}, {"t": "Leg drag"}, {"t": "Hammer down"}, {"t": "Crab knee wedge", "c": [{"t": "Back take"}]}, {"t": "Crab reverse x", "c": [{"t": "Leg drag"}, {"t": "Knee staple"}, {"t": "Hammer down", "c": [{"t": "Crab knee wedge", "c": [{"t": "Back take"}]}]}]}, {"t": "Crab shin wedge", "c": [{"t": "Invert crab x", "c": [{"t": "Knee staple", "c": [{"t": "Side control"}]}, {"t": "Crab knee wedge", "c": [{"t": "Back take"}]}]}, {"t": "Crab shin wedge", "c": [{"t": "`"}]}]}, {"t": "Knee staple", "c": [{"t": "Side control"}]}, {"t": "Knee wedge berimbolo", "c": [{"t": "Back take"}, {"t": "Reverse half", "c": [{"t": "Hook far arm", "c": [{"t": "Roll opponent back through with twister hook", "c": [{"t": "Back take"}]}, {"t": "Chair sit for back", "c": [{"t": "Back take"}]}]}]}, {"t": "Far arm underhook twister hook back take", "c": [{"t": "Back take"}]}, {"t": "Far arm chair sit back take", "c": [{"t": "Back take"}]}]}, {"t": "Twister hook battle", "c": [{"t": "Kick through back take"}, {"t": "Rebolo off losing kick through"}, {"t": "Double leg counter"}]}]}]}]}, {"title": "Guard playing", "color": "#47c8ff", "nodes": [{"t": "Seated Guard", "c": [{"t": "Cross Grip", "c": [{"t": "Collar tie", "c": [{"t": "Overback"}, {"t": "North south"}]}]}, {"t": "High Tripod", "c": [{"t": "Entries"}, {"t": "Arm and head position"}, {"t": "Passes", "c": [{"t": "Shoving leg down"}, {"t": "Hip switch"}, {"t": "Knee cut"}, {"t": "Stepping over leg"}]}]}, {"t": "Bodylock", "c": [{"t": "Bodylock positioning", "c": [{"t": "One arm deep one shallow"}, {"t": "Tricep pressure"}, {"t": "Head centered"}, {"t": "Hips to ass"}, {"t": "Pulling in"}]}, {"t": "Passes", "c": [{"t": "Two butterfly hooks", "c": [{"t": "Stepping over to mount", "c": [{"t": "mount"}]}, {"t": "Two legs on one shin", "c": [{"t": "side control"}]}, {"t": "Step over to half butterfly", "c": [{"t": "Half butterfly"}]}]}, {"t": "Half butterfly", "c": [{"t": "Turn hips away", "c": [{"t": "Back step", "c": [{"t": "side control"}]}, {"t": "Smash pass", "c": [{"t": "side control"}]}]}]}, {"t": "Half guard", "c": [{"t": "Head post windshield wiper"}, {"t": "Climb to underhooks", "c": [{"t": "Half guard passing"}]}]}]}, {"t": "Dealing with defenses", "c": [{"t": "Slipping out to closed guard", "c": [{"t": "Pinning feet"}]}, {"t": "Gogopalata", "c": [{"t": "Bringing head to pummeling leg side"}]}, {"t": "Framing head", "c": [{"t": "Stepping over opposite side"}]}, {"t": "Framing knees", "c": [{"t": "Using head to create room"}]}, {"t": "Pushing bodylock down", "c": [{"t": "Tight bodylock"}]}, {"t": "Underhooking arm for"}]}]}]}, {"t": "Shin pin", "c": [{"t": "J point"}, {"t": "Rau drag"}, {"t": "Arm weave", "c": [{"t": "Overback", "c": [{"t": "North South"}]}, {"t": "Reverse collar tie", "c": [{"t": "North south passing"}]}]}]}, {"t": "Reverse de la riva", "c": [{"t": "Kiss of the dragon", "c": [{"t": "Crab ride"}, {"t": "Wrestle up tripod rear bodylock"}]}]}, {"t": "De la riva", "c": [{"t": "Baby bolo", "c": [{"t": "crab ride"}, {"t": "wrestle up tripod"}]}]}, {"t": "Knee shield Half guard", "c": [{"t": "[K hook Body X"}]}, {"t": "K guard", "c": [{"t": "[Passing foot across"}, {"t": "Crab Ride Entry]"}]}, {"t": "Single leg X", "c": [{"t": "Standing", "c": [{"t": "Strip foot push knee through step leg passed to pass"}, {"t": "Strip leg back step"}]}, {"t": "Seated", "c": [{"t": "Strip foot on hip hop over push pull out"}]}]}, {"t": "X guard", "c": [{"t": "Control foot clear other back step to pass"}, {"t": "If wrestle up inside switch tripod"}]}, {"t": "Outside ashi", "c": [{"t": "Control knee line , feet off hips, knee facing inwards, shoe laces to mat", "c": [{"t": "Smash pass"}]}, {"t": "Knee wedge berimbolo", "c": [{"t": "Back take"}, {"t": "Reverse half", "c": [{"t": "Twister hook arm underhook", "c": [{"t": "Back take"}]}, {"t": "Chair sit arm underhook"}]}]}]}, {"t": "Butterfly ashi", "c": [{"t": "Clear foot back step"}, {"t": "Spin out if ankle being exposed", "c": [{"t": "Escape"}, {"t": "Crab ride"}]}]}, {"t": "Reverse de la riva", "c": [{"t": "Back step strip foot step back in", "c": [{"t": "I point"}]}, {"t": "Diving to crab x", "c": [{"t": "Crab ride"}]}]}, {"t": "De la riva", "c": [{"t": "Turn knee outward", "c": [{"t": "Push ankle force headquartes", "c": [{"t": "Headquarters"}, {"t": "High tripod"}]}, {"t": "Knee to flooor"}]}, {"t": "Diving leg drag", "c": [{"t": "Hammer down"}]}, {"t": "Diving crab x", "c": [{"t": "Crab ride"}]}]}, {"t": "K guard", "c": [{"t": "Hips low on foot fight feet", "c": [{"t": "North south passing"}, {"t": "Underhook mount"}]}, {"t": "Crab shin wedge", "c": [{"t": "Crab ride"}]}]}, {"t": "Knee shield half guard", "c": [{"t": "Standard", "c": [{"t": "Sprawling split squat"}]}, {"t": "Z guard", "c": [{"t": "Low head split squat"}]}]}, {"t": "Half butterfly", "c": [{"t": "High tripod"}, {"t": "Bodylock"}]}, {"t": "Butterfly guard", "c": [{"t": "Bodylock"}, {"t": "High tripod"}, {"t": "shoulder crunch", "c": [{"t": "Early prevention"}, {"t": "Shoulder crunch defence"}, {"t": "Double unders", "c": [{"t": "Posture up pummel underhook"}, {"t": "Arms above head", "c": [{"t": "Elbows back", "c": [{"t": "Posture up pummel underhook"}, {"t": "Foot on hip", "c": [{"t": "Hip switch", "c": [{"t": "Posture up pummel underhook"}]}]}]}]}]}, {"t": "Wrestle ups"}, {"t": "Subtopic"}]}]}, {"t": "Half Guard Passing", "c": [{"t": "Chest to chest", "c": [{"t": "Upper body controls", "c": [{"t": "Crossface"}, {"t": "Double unders"}, {"t": "Near side underhook"}, {"t": "Head positioning"}]}, {"t": "Passes", "c": [{"t": "Windshield wiper", "c": [{"t": "Three quarter mount", "c": [{"t": "Mount"}]}, {"t": "Knee cut"}]}]}]}]}, {"t": "Quarter guard", "c": [{"t": "Side control"}, {"t": "Dealing with defences", "c": [{"t": "John wayne sweep", "c": [{"t": "Knees facing same way"}]}, {"t": "Kimura", "c": [{"t": "Early prevention"}, {"t": "Clearing kimura"}]}, {"t": "Underhook wrestle up", "c": [{"t": "overhook back step"}, {"t": "Early prevention hip clamp"}]}]}, {"t": "Knee shield", "c": [{"t": "Split squat camping", "c": [{"t": "Sprawling", "c": [{"t": "Rau drag"}, {"t": "Smashing knee shield", "c": [{"t": "Shin pin"}, {"t": "Mount"}]}]}, {"t": "Tripoding", "c": [{"t": "Shin pin"}]}, {"t": "Dealing with defences", "c": [{"t": "Reverse de la riva", "c": [{"t": "Back step J point"}]}, {"t": "K hook", "c": [{"t": "Hand positioning"}, {"t": "Elbow blocking"}]}, {"t": "Arm drag", "c": [{"t": "Overback"}]}, {"t": "Underhook wrestle up", "c": [{"t": "Clampoing hip near side underhook"}]}]}]}]}, {"t": "Z Guard"}, {"t": "Half butterfly", "c": [{"t": "High Tripod", "c": [{"t": "Arm and head position"}, {"t": "Passes", "c": [{"t": "Shoving leg down"}, {"t": "Hip switch"}, {"t": "Knee cut"}, {"t": "Stepping over leg"}]}]}]}]}, {"t": "Headquarters", "c": [{"t": "Leg drag", "c": [{"t": "Side control"}]}, {"t": "Over/under", "c": [{"t": "Control points", "c": [{"t": "Head pressure into hip"}, {"t": "Straight arms"}]}]}, {"t": "Smash pass", "c": [{"t": "Side control"}]}, {"t": "J point"}, {"t": "Throwing leg through", "c": [{"t": "Three quarter mount", "c": [{"t": "Mount"}]}]}, {"t": "High tripod"}]}, {"t": "Closed Guard", "c": [{"t": "Closed Guard", "c": [{"t": "Knee through centre"}, {"t": "Standing ankle grip underhook break", "c": [{"t": "delariva", "c": [{"t": "knee too floor"}, {"t": "smash pass"}]}, {"t": "k guard", "c": [{"t": "control leg step out"}, {"t": "Crab ride shin block"}]}]}, {"t": "Standing ankle grip push"}]}]}]}, {"title": "Dominant Positions", "color": "#34d399", "nodes": [{"t": "Turtle", "c": [{"t": "Offence", "c": [{"t": "Seat belt", "c": [{"t": "Rolling backtake", "c": [{"t": "Chair sit", "c": [{"t": "Seated crab", "c": [{"t": "Back take"}]}]}, {"t": "Seated crab", "c": [{"t": "Back take"}]}]}, {"t": "Knee wedge", "c": [{"t": "Peel oppponents ankle", "c": [{"t": "Single hook"}]}]}]}, {"t": "Spiral ride", "c": [{"t": "Near side tip over", "c": [{"t": "Reverse dÃ¢ÂÂarce"}, {"t": "Back tale"}]}, {"t": "Far side", "c": [{"t": "Head an arn"}, {"t": "Reverse dÃ¢ÂÂarce"}]}, {"t": "Near side hook", "c": [{"t": "Near side tip over"}, {"t": "Far side rolling backtake"}]}, {"t": "Far side hook", "c": [{"t": "Half nelson", "c": [{"t": "Second hook"}]}]}]}, {"t": "Crab hook", "c": [{"t": "Far side crab smash"}, {"t": "Near side tip over", "c": [{"t": "Lat hip grip"}, {"t": "Rear body lock", "c": [{"t": "Near side tip over"}]}]}]}, {"t": "Single hook"}]}, {"t": "Defence", "c": [{"t": "Keep them outside of legs"}, {"t": "Blocking space for hooks"}]}, {"t": "Counters", "c": [{"t": "Cartwheel"}, {"t": "Inside switch"}, {"t": "Fatman roll"}, {"t": "Granby"}]}]}, {"t": "Front Headlock", "c": [{"t": "Chin Strap", "c": [{"t": "Head in hole", "c": [{"t": "Offence", "c": [{"t": "Rear Bodylock"}, {"t": "Single leg Rear Bodylock"}, {"t": "Whip by"}]}, {"t": "Defence"}]}, {"t": "High elbow guillotine", "c": [{"t": "Offence", "c": [{"t": "High elbow guillotine"}]}, {"t": "Defence", "c": [{"t": "Arm over high elbow"}, {"t": "Stripping leg"}]}]}, {"t": "High wrist guillotine", "c": [{"t": "Offence", "c": [{"t": "High wrist guillotine"}]}, {"t": "Defence", "c": [{"t": "Strip grip turn head"}]}]}, {"t": "Anaconda", "c": [{"t": "Offence", "c": [{"t": "Anaconda"}]}, {"t": "Defence", "c": [{"t": "leg and arm post"}]}]}, {"t": "Boltcutter", "c": [{"t": "Defence", "c": [{"t": "Push arm off head"}]}]}, {"t": "DÃ¢ÂÂarce", "c": [{"t": "Offence", "c": [{"t": "Bolt cutter"}, {"t": "Turtle"}]}, {"t": "Defence", "c": [{"t": "Push arm off", "c": [{"t": "Lay to back"}]}, {"t": "extend arm"}]}]}, {"t": "Japanese Necktie", "c": [{"t": "Offence", "c": [{"t": "Bolt cutter"}]}, {"t": "Defence", "c": [{"t": "Free leg"}, {"t": "Hide foot"}, {"t": "Clear bolt cutter"}]}]}]}, {"t": "Hands Locked", "c": [{"t": "High elbow guillotine", "c": [{"t": "Offence", "c": [{"t": "Sit back"}, {"t": "Roll through"}]}, {"t": "Defence", "c": [{"t": "Arm over high elbow"}, {"t": "Stripping leg"}]}]}, {"t": "High wrist guillotine", "c": [{"t": "Offence"}, {"t": "Defence"}]}, {"t": "Anaconda", "c": [{"t": "Offence", "c": [{"t": "Anaconda"}]}, {"t": "Defence", "c": [{"t": "Arm and leg post"}]}]}, {"t": "Boltcutter", "c": [{"t": "Offence", "c": [{"t": "DÃ¢ÂÂarce"}, {"t": "Japanese Necktie", "c": [{"t": "Hook leg"}]}]}, {"t": "Defence", "c": [{"t": "Push off head"}]}]}, {"t": "DÃ¢ÂÂarce", "c": [{"t": "Offence", "c": [{"t": "Bolt cutter"}, {"t": "Turtle"}]}, {"t": "Defence", "c": [{"t": "Escape arm"}]}]}, {"t": "Japanese Necktie", "c": [{"t": "Offence", "c": [{"t": "Bolt cutter"}, {"t": "Hook leg"}]}, {"t": "Defence", "c": [{"t": "Clear bolt cutter"}, {"t": "Hide foot"}]}]}, {"t": "Head pinch", "c": [{"t": "Offence", "c": [{"t": "Anaconda"}]}, {"t": "Defence", "c": [{"t": "Leg up"}]}]}, {"t": "Headspin", "c": [{"t": "Offence", "c": [{"t": "Anaconda"}]}, {"t": "Defence", "c": [{"t": "Leg and arm post"}]}]}]}]}, {"t": "Mount", "c": [{"t": "Head arm", "c": [{"t": "turtles", "c": [{"t": "Reverse darce"}]}, {"t": "arm to mat", "c": [{"t": "switch armsweave armknee through", "c": [{"t": "Mounted triangle"}, {"t": "S mount", "c": [{"t": "Arm bar"}]}]}]}]}, {"t": "Control", "c": [{"t": "Offence", "c": [{"t": "Squeezing legs"}, {"t": "Postured up"}, {"t": "Feet position"}, {"t": "Isolating arm"}]}, {"t": "Defence", "c": [{"t": "Kipping escape"}, {"t": "Foot trap"}]}]}]}, {"t": "Side Control", "c": [{"t": "Defence", "c": [{"t": "Shoulder frame", "c": [{"t": "Dig Underhook", "c": [{"t": "Wrestle up single leg"}, {"t": "wrestle up dog fight"}]}, {"t": "Bring knee shield back in"}]}, {"t": "Knee frame"}]}, {"t": "Offence", "c": [{"t": "North South Choke"}, {"t": "Darce Choke"}, {"t": "Far side arm bar"}, {"t": "Von flue"}, {"t": "Near side Kimura", "c": [{"t": "Kimura"}, {"t": "Tarikoplata"}, {"t": "Arm bar"}, {"t": "Back take"}]}, {"t": "Triangle"}]}, {"t": "to mount", "c": [{"t": "High step to mount"}, {"t": "Gift wrap to back"}, {"t": "Seat belt to back"}, {"t": "Control points", "c": [{"t": "Tight waist"}, {"t": "Near side underhook"}, {"t": "Crossface"}]}]}, {"t": "Transitions", "c": [{"t": "Knee on belly"}]}]}, {"t": "North South", "c": [{"t": "Control", "c": [{"t": "Arms inside"}, {"t": "Behind tricep grips"}, {"t": "Collar tie"}, {"t": "Overback"}, {"t": "Reverse bodylock"}]}, {"t": "Transitions", "c": [{"t": "Side control"}, {"t": "Back", "c": [{"t": "Gift wrap"}, {"t": "Kimura"}]}, {"t": "Front headlock"}, {"t": "Turtle"}]}, {"t": "Offence", "c": [{"t": "North south choke"}, {"t": "Kimura", "c": [{"t": "Kimura"}, {"t": "Tarikoplata"}, {"t": "Arm bar"}, {"t": "Back take"}]}, {"t": "DÃ¢ÂÂarce"}]}, {"t": "Defence", "c": [{"t": "Frames"}, {"t": "Coil"}, {"t": "Far shoulder foot hook"}, {"t": "wrestle up"}, {"t": "turtle"}]}]}, {"t": "Back Control"}]}];
 const COLORS = ['#e8ff47','#ff6b35','#a78bfa','#47c8ff','#34d399'];
 
 // ─── STATE ───────────────────────────────────────────────────────────────────
@@ -469,8 +636,28 @@ function toggleExpanded(key) {
   }
   if(window.cmSyncExpanded) window.cmSyncExpanded();
   if(window.g3dSyncExpanded) window.g3dSyncExpanded();
+  if(window.refSyncExpanded) window.refSyncExpanded();
 }
 
+function refSyncExpanded() {
+  // Sync section-level collapse
+  document.querySelectorAll('.section[data-section]').forEach(div => {
+    const title = div.dataset.section;
+    const key = makeKey(title, title);
+    const shouldBeExpanded = EXPANDED.has(key);
+    if (shouldBeExpanded) div.classList.remove('collapsed');
+    else div.classList.add('collapsed');
+  });
+  // Sync node-level collapse in tree items (require data-key attribute)
+  document.querySelectorAll('.tree-item[data-key]').forEach(li => {
+    const key = li.dataset.key;
+    const tog = li.querySelector(':scope > .node > .node-toggle');
+    if (!tog || tog.classList.contains('leaf')) return;
+    const shouldBeExpanded = EXPANDED.has(key);
+    if (shouldBeExpanded) { li.classList.remove('collapsed'); tog.textContent = '−'; }
+    else { li.classList.add('collapsed'); tog.textContent = '+'; }
+  });
+}
 
 function updateStats() {
   let learned = 0;
@@ -779,6 +966,7 @@ function buildSections() {
       if (div.classList.contains('collapsed')) EXPANDED.delete(sectionKey); else EXPANDED.add(sectionKey);
       if(window.cmSyncExpanded) window.cmSyncExpanded();
       if(window.g3dSyncExpanded) window.g3dSyncExpanded();
+      // Don't call refSyncExpanded here - we ARE the ref tree, would cause loop
     });
     const body = document.createElement('div');
     body.className = 'section-body';
@@ -941,107 +1129,429 @@ function refreshAllViews() {
 }
 
 // ─── 2D CUSTOM MAP ─────────────────────────────────────────────────────────
-window.initCustomMap = (function() {
-  let ready=false, tx=0, ty=0, sc=0.72, panX=0, panY=0, panning=false;
-  const NS='http://www.w3.org/2000/svg', reg={}; window._cmReg=reg;
-  const E=(tag,attrs,par)=>{const e=document.createElementNS(NS,tag);for(const[k,v]of Object.entries(attrs||{}))e.setAttribute(k,v);if(par)par.appendChild(e);return e;};
-  const applyT=()=>{const g=document.getElementById('cmRoot');if(g)g.setAttribute('transform',`translate(${tx},${ty}) scale(${sc})`);};
-  const pc=key=>{const p=STATE.progress[key]||'none';return p==='learned'?'#e8ff47':p==='drilling'?'#47c8ff':null;};
-  const nw=d=>[0,180,164,148,132,118,106][Math.min(d,6)]||106;
-  const nh=d=>[0,38,30,26,24,22,20][Math.min(d,6)]||20;
-  const span=(nd,d,r)=>{
-    if(!nd.c||!nd.c.length)return Math.max(0.18,(nw(d)+14)/Math.max(r,1));
-    const cr=r+(d<=1?220:d<=2?180:d<=3?148:118);
-    return Math.max((nw(d)+14)/Math.max(r,1),nd.c.reduce((s,c)=>s+span(c,d+1,cr),0));
+/*
+  Reingold-Tilford Radial Layout
+  ─ Each leaf node is assigned an equal angle slice (2π / totalLeaves).
+  ─ Internal nodes sit at the mid-angle of their subtree's slice.
+  ─ Radius at each depth is computed so all nodes at that depth fit without
+    overlap: r_d = max(r_{d-1} + minGap,  nodeCount_d * nodeArc_d / 2π)
+  ─ The tree is fully re-rendered on every expand/collapse, guaranteeing
+    no crossing at any expansion state.
+*/
+window.initCustomMap = (function () {
+  let tx = 0, ty = 0, sc = 0.55;
+  let panX = 0, panY = 0, panning = false;
+  let initialized = false;
+  const NS = 'http://www.w3.org/2000/svg';
+  const E = (tag, attrs, par) => {
+    const e = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs || {})) e.setAttribute(k, v);
+    if (par) par.appendChild(e);
+    return e;
   };
-  const refresh=r=>{const p=pc(r.key),c=r.col,hv=r.hv,d=r.depth;r.bg.setAttribute('fill',p?p+'22':(d===1?c+'1a':'#0f1218'));r.bg.setAttribute('stroke',p||(d<=2?c:(hv?'#ff6b35':'#1e2535')));r.txt.setAttribute('fill',p||(d===1?c:(hv?'#ff9966':'#6070a0')));};
-  window.cmRefreshAll=()=>Object.values(reg).forEach(refresh);
-  window.cmSyncExpanded=()=>{for(const[key,r]of Object.entries(reg)){if(!r.childG)continue;const vis=EXPANDED.has(key);r.childG.setAttribute('visibility',vis?'visible':'hidden');r.childG.style.pointerEvents=vis?'auto':'none';}};
-  function draw(par,nd,x,y,angle,d,col,st,px,py){
-    const text=nd.t.replace(/^[-•]\s*/,'').trim(),key=makeKey(st,nd.t),hv=!!(nd.v||nd.l),kids=nd.c||[],hasK=kids.length>0,w=nw(d),h=nh(d),fs=d===1?13:d===2?11:d===3?10:9;
-    const g=E('g',{},par);
-    if(px!==undefined){
-      const dx=x-px,dy=y-py,len=Math.sqrt(dx*dx+dy*dy)||1,ux=dx/len,uy=dy/len;
-      const tS=Math.min(nw(d-1)/2/Math.abs(ux||1e-4),nh(d-1)/2/Math.abs(uy||1e-4));
-      const tD=Math.min(w/2/Math.abs(ux||1e-4),h/2/Math.abs(uy||1e-4));
-      const p0=pc(key);
-      E('line',{x1:px+ux*(tS+2),y1:py+uy*(tS+2),x2:x-ux*(tD+2),y2:y-uy*(tD+2),stroke:p0||(col+(d<=2?'cc':'55')),'stroke-width':d===1?2:d===2?1.5:1,'stroke-linecap':'round','stroke-dasharray':STATE.progress[key]==='drilling'?'5,3':'none'},g);
-    }
-    const p0=pc(key);
-    const bg=E('rect',{x:x-w/2,y:y-h/2,width:w,height:h,rx:d===1?5:3,fill:p0?p0+'22':(d===1?col+'1a':'#0f1218'),stroke:p0||(d<=2?col:(hv?'#ff6b35':'#1e2535')),'stroke-width':d===1?1.5:1},g);
-    const txt=E('text',{x,y:y+1,'text-anchor':'middle','dominant-baseline':'middle',fill:p0||(d===1?col:(hv?'#ff9966':'#6070a0')),'font-size':fs,'font-family':d===1?'Bebas Neue,sans-serif':'DM Mono,monospace','letter-spacing':d===1?'1.5':'0','pointer-events':'none'},g);
-    // Measure and wrap text - expand box to fit, never truncate
-    (()=>{
-      const chars=Math.floor((w-10)/(fs*0.58));
-      if(text.length<=chars){
-        txt.textContent=text;
-      } else {
-        // Try to split at a word boundary near the middle
-        const mid=Math.floor(text.length/2);
-        let split=text.lastIndexOf(' ',mid+8);
-        if(split<4) split=text.indexOf(' ',mid-8);
-        if(split<1) split=chars; // fallback hard split
-        const line1=text.slice(0,split).trim();
-        const line2=text.slice(split).trim();
-        txt.textContent='';
-        const t1=document.createElementNS(NS,'tspan');t1.setAttribute('x',x);t1.setAttribute('dy',`-${fs*0.55}`);t1.textContent=line1;txt.appendChild(t1);
-        const t2=document.createElementNS(NS,'tspan');t2.setAttribute('x',x);t2.setAttribute('dy',fs*1.1);t2.textContent=line2;txt.appendChild(t2);
-        // expand box height for 2-line text
-        bg.setAttribute('height',h+fs+2);bg.setAttribute('y',y-(h+fs+2)/2);
-      }
-    })();
-    if(hv)E('circle',{cx:x+w/2-5,cy:y-h/2+5,r:3,fill:'#ff6b35'},g);
-    if(STATE.notes[key])E('circle',{cx:x+w/2-5,cy:y+h/2-5,r:2.5,fill:'#a78bfa'},g);
-    let childG=null;
-    if(hasK){
-      childG=E('g',{visibility:EXPANDED.has(key)?'visible':'hidden'},g);
-      if(!EXPANDED.has(key)) childG.style.pointerEvents='none';
-      const dist=d===1?220:d===2?182:d===3?150:122;
-      const spans=kids.map(c=>span(c,d+1,dist)),total=spans.reduce((s,a)=>s+a,0);
-      const fan=Math.min(Math.PI*0.88,total),scale=fan/Math.max(total,0.001);
-      let cum=angle-fan/2;
-      kids.forEach((child,ci)=>{const s=spans[ci]*scale,ca=cum+s/2;cum+=s;draw(childG,child,x+Math.cos(ca)*dist,y+Math.sin(ca)*dist,ca,d+1,col,st,x,y);});
-    }
-    reg[key]={bg,txt,childG,key,col,depth:d,hv,nd};
-    g.style.cursor='pointer';
-    g.addEventListener('click',e=>{e.stopPropagation();setSelectedNode(key,text,st);if(hasK)toggleExpanded(key);else{let si=0;SECTIONS.forEach((s,i)=>{if(s.title===st)si=i;});buildPopup(document.getElementById('cmPopup'),nd,st,COLORS[si%COLORS.length]);}});
-    g.addEventListener('mouseenter',()=>{bg.setAttribute('fill',d===1?col+'33':'#1e2535');bg.setAttribute('stroke',col);txt.setAttribute('fill','#dde1ed');});
-    g.addEventListener('mouseleave',()=>refresh(reg[key]));
+
+  // Node dimensions by depth
+  const nw = d => [0, 180, 164, 148, 132, 118, 108][Math.min(d, 6)] || 108;
+  const nh = d => [0,  36,  28,  25,  23,  21,  20][Math.min(d, 6)] || 20;
+
+  // Progress colour override
+  const pc = key => {
+    const p = STATE.progress[key] || 'none';
+    return p === 'learned' ? '#e8ff47' : p === 'drilling' ? '#47c8ff' : null;
+  };
+
+  const reg = {};
+  window._cmReg = reg;
+  let svg, rootG, W, H;
+
+  const applyT = () => {
+    if (rootG) rootG.setAttribute('transform', `translate(${tx},${ty}) scale(${sc})`);
+  };
+
+  // ── Layout helpers ──────────────────────────────────────────────────────────
+
+  // Count visible leaf nodes under a node (respects EXPANDED)
+  function countLeaves(node, st) {
+    const key = makeKey(st, node.t);
+    if (!node.c || !node.c.length || !EXPANDED.has(key)) return 1;
+    return node.c.reduce((s, c) => s + countLeaves(c, st), 0);
   }
-  return function(){
-    const wrap=document.getElementById('cmCanvas'),W=wrap.clientWidth,H=wrap.clientHeight;
-    if(!W||!H){setTimeout(initCustomMap,50);return;}
-    if(!ready){
-      ready=true;
-      const svg=document.getElementById('cmSvg');svg.setAttribute('width',W);svg.setAttribute('height',H);svg.style.cssText=`width:${W}px;height:${H}px;`;
-      const rootG=document.createElementNS(NS,'g');rootG.id='cmRoot';svg.appendChild(rootG);
-      const cx=W/2,cy=H/2;
-      E('circle',{cx,cy,r:52,fill:'#13161e',stroke:'#8890a8','stroke-width':2},rootG);
-      E('text',{x:cx,y:cy,'text-anchor':'middle','dominant-baseline':'middle',fill:'#8890a8','font-family':'Bebas Neue,sans-serif','font-size':14,'letter-spacing':3,'pointer-events':'none'},rootG).textContent='GRAPPLING';
-      SECTIONS.forEach((sec,si)=>{
-        const angle=(si/SECTIONS.length)*Math.PI*2-Math.PI/2,dist=260,col=COLORS[si%COLORS.length];
-        const sx=cx+Math.cos(angle)*dist,sy=cy+Math.sin(angle)*dist,w1=nw(1),h1=nh(1);
-        const dx=sx-cx,dy=sy-cy,len=Math.sqrt(dx*dx+dy*dy)||1,ux=dx/len,uy=dy/len;
-        E('line',{x1:cx+ux*54,y1:cy+uy*54,x2:sx-ux*(Math.min(w1/2/Math.abs(ux||1e-4),h1/2/Math.abs(uy||1e-4))+2),y2:sy-uy*(Math.min(w1/2/Math.abs(ux||1e-4),h1/2/Math.abs(uy||1e-4))+2),stroke:col+'88','stroke-width':2,'stroke-linecap':'round'},rootG);
-        draw(rootG,{t:sec.title,c:sec.nodes},sx,sy,angle,1,col,sec.title);
+
+  // Compute positions for every currently-visible node.
+  // Returns array of { nd, key, x, y, depth, col, st, px, py }
+  function computePositions(cx, cy) {
+    const positions = [];
+    const secs = window.SECTIONS || SECTIONS;
+    const N = secs.length;
+    const GAP = 14; // px gap between adjacent node boxes at same depth
+
+    // ── Step 1: count nodes at each depth to compute minimum radii ──────────
+    const depthCount = {};
+    function walkCount(node, st, d) {
+      depthCount[d] = (depthCount[d] || 0) + 1;
+      const key = makeKey(st, node.t);
+      if (node.c && node.c.length && EXPANDED.has(key))
+        node.c.forEach(c => walkCount(c, st, d + 1));
+    }
+    secs.forEach(sec => {
+      depthCount[1] = (depthCount[1] || 0) + 1;
+      const sk = makeKey(sec.title, sec.title);
+      if (EXPANDED.has(sk)) sec.nodes.forEach(n => walkCount(n, sec.title, 2));
+    });
+
+    // ── Step 2: minimum radius per depth ─────────────────────────────────────
+    // r_d = max(r_{d-1} + minLayerGap,  nodeCount_d * (nodeWidth_d + GAP) / 2π)
+    const MIN_LAYER_GAP = 185;
+    const radii = [0]; // radii[0] = centre
+    for (let d = 1; d <= 8; d++) {
+      const count = depthCount[d] || 0;
+      const arc = nw(d) + GAP;
+      const ringMin = count > 1 ? count * arc / (2 * Math.PI) : 0;
+      radii[d] = Math.max((radii[d - 1] || 0) + MIN_LAYER_GAP, ringMin, d === 1 ? 270 : 0);
+    }
+
+    // ── Step 3: assign angle slices proportional to leaf count ───────────────
+    // Total visible leaves decides angle-per-leaf = 2π / totalLeaves
+    let totalLeaves = 0;
+    secs.forEach(sec => {
+      const sk = makeKey(sec.title, sec.title);
+      if (!EXPANDED.has(sk)) { totalLeaves += 1; return; }
+      totalLeaves += sec.nodes.reduce((s, n) => s + countLeaves(n, sec.title), 0);
+    });
+    totalLeaves = Math.max(totalLeaves, 1);
+
+    const TWO_PI = 2 * Math.PI;
+    const OFFSET = -Math.PI / 2; // 12-o'clock start
+    let leafCursor = 0;
+
+    secs.forEach((sec, si) => {
+      const col = sec.color || (window.COLORS || COLORS)[si % (window.COLORS || COLORS).length];
+      const sk  = makeKey(sec.title, sec.title);
+      const secLeaves = EXPANDED.has(sk)
+        ? sec.nodes.reduce((s, n) => s + countLeaves(n, sec.title), 0)
+        : 1;
+
+      const aS = OFFSET + (leafCursor / totalLeaves) * TWO_PI;
+      const aE = OFFSET + ((leafCursor + secLeaves) / totalLeaves) * TWO_PI;
+      const aC = (aS + aE) / 2;
+      leafCursor += secLeaves;
+
+      const r1 = radii[1];
+      const sx = cx + Math.cos(aC) * r1;
+      const sy = cy + Math.sin(aC) * r1;
+
+      positions.push({ nd: { t: sec.title, c: sec.nodes }, key: sk,
+        x: sx, y: sy, angle: aC, depth: 1, col, st: sec.title, px: cx, py: cy });
+
+      if (EXPANDED.has(sk) && sec.nodes.length)
+        placeChildren(sec.nodes, sec.title, col, 2, aS, aE, sx, sy, cx, cy, radii, positions);
+    });
+
+    return positions;
+  }
+
+  function placeChildren(children, st, col, depth, aS, aE, parentX, parentY, cx, cy, radii, positions) {
+    const lc = children.map(c => countLeaves(c, st));
+    const total = lc.reduce((s, c) => s + c, 0) || 1;
+    const rawSpread = aE - aS;
+
+    // Parent's direction angle from global centre — children fan around this
+    const parentAngle = Math.atan2(parentY - cy, parentX - cx);
+
+    // Step distance outward per depth for deep nodes
+    const STEP = 155;
+
+    // Max fan for deep children so they don't wrap sideways
+    // Progressively tighter as depth increases
+    const maxFan = depth <= 2 ? rawSpread : Math.min(rawSpread, 0.9 / (depth - 1));
+
+    let leafCursor = 0;
+    children.forEach((child, i) => {
+      const childLeaves = lc[i];
+      const childAStart = aS + (leafCursor / total) * rawSpread;
+      const childAEnd   = aS + ((leafCursor + childLeaves) / total) * rawSpread;
+      const globalAC    = (childAStart + childAEnd) / 2; // angle around global centre
+      leafCursor += childLeaves;
+
+      let x, y;
+      if (depth <= 2) {
+        // Global radial — pure ring layout, looks like the spider web
+        const r = radii[Math.min(depth, 8)];
+        x = cx + Math.cos(globalAC) * r;
+        y = cy + Math.sin(globalAC) * r;
+      } else {
+        // Parent-relative — fan outward from parent along parent's direction
+        // Relative offset within this branch's fan
+        const branchMid = (aS + aE) / 2;
+        const relOffset = globalAC - branchMid; // deviation from branch centre
+        // Scale deviation down so children fan gently around parent direction
+        const scaledOffset = relOffset * Math.min(1, maxFan / rawSpread);
+        const childAngle = parentAngle + scaledOffset;
+        x = parentX + Math.cos(childAngle) * STEP;
+        y = parentY + Math.sin(childAngle) * STEP;
+      }
+
+      const key = makeKey(st, child.t);
+      positions.push({ nd: child, key, x, y, angle: globalAC, depth, col, st, px: parentX, py: parentY });
+      if (child.c && child.c.length && EXPANDED.has(key))
+        placeChildren(child.c, st, col, depth + 1, childAStart, childAEnd, x, y, cx, cy, radii, positions);
+    });
+  }
+
+  // Parametric distance from rectangle centre to its edge in direction (ux,uy)
+  function rectT(hw, hh, ux, uy) {
+    const tx = Math.abs(ux) > 0.001 ? hw / Math.abs(ux) : 1e9;
+    const ty = Math.abs(uy) > 0.001 ? hh / Math.abs(uy) : 1e9;
+    return Math.min(tx, ty);
+  }
+
+  // ── Render ──────────────────────────────────────────────────────────────────
+  function render() {
+    if (!svg || !W || !H) return;
+    rootG.innerHTML = '';
+    Object.keys(reg).forEach(k => delete reg[k]);
+
+    const cx = W / 2, cy = H / 2;
+    const positions = computePositions(cx, cy);
+
+    // Centre node
+    E('circle', { cx, cy, r: 50, fill: '#13161e', stroke: '#8890a8', 'stroke-width': 2 }, rootG);
+    E('text', { x: cx, y: cy, 'text-anchor': 'middle', 'dominant-baseline': 'middle',
+      fill: '#8890a8', 'font-family': 'Bebas Neue,sans-serif',
+      'font-size': 13, 'letter-spacing': 3, 'pointer-events': 'none' }, rootG).textContent = 'GRAPPLING';
+
+    // Edges (behind nodes)
+    const edgeG = E('g', {}, rootG);
+    positions.forEach(({ x, y, depth, col, key, px, py }) => {
+      const dx = x - px, dy = y - py, len = Math.sqrt(dx * dx + dy * dy) || 1;
+      const ux = dx / len, uy = dy / len;
+      const cw = nw(depth), ch = nh(depth);
+      const tD = rectT(cw / 2, ch / 2, ux, uy);
+      const lx2 = x - ux * (tD + 3), ly2 = y - uy * (tD + 3);
+      let lx1, ly1;
+      if (depth === 1) {
+        lx1 = px + ux * 52; ly1 = py + uy * 52; // from centre circle edge
+      } else {
+        const pd = depth - 1;
+        const tS = rectT(nw(pd) / 2, nh(pd) / 2, ux, uy);
+        lx1 = px + ux * (tS + 3); ly1 = py + uy * (tS + 3);
+      }
+      // Gentle quadratic bezier
+      const mx = (lx1 + lx2) / 2, my = (ly1 + ly2) / 2;
+      const cpx = mx - (ly2 - ly1) * 0.07, cpy = my + (lx2 - lx1) * 0.07;
+      const p0 = pc(key);
+      const sa = depth <= 2 ? 'cc' : depth === 3 ? '99' : '77';
+      const dash = STATE.progress[key] === 'drilling' ? '5,3' : 'none';
+      E('path', { d: `M${lx1},${ly1} Q${cpx},${cpy} ${lx2},${ly2}`,
+        stroke: p0 || (col + sa), fill: 'none',
+        'stroke-width': depth === 1 ? 2 : depth === 2 ? 1.5 : 1,
+        'stroke-linecap': 'round', 'stroke-dasharray': dash }, edgeG);
+    });
+
+    // Nodes
+    positions.forEach(({ nd, key, x, y, depth, col, st }) => {
+      const text = nd.t.replace(/^[-•]\s*/, '').trim();
+      const hv   = !!(nd.v || nd.l);
+      const hasK = !!(nd.c && nd.c.length);
+      const w = nw(depth), h = nh(depth), fs = depth === 1 ? 13 : depth === 2 ? 11 : depth === 3 ? 10 : 9;
+      const p0 = pc(key);
+      const fa = depth === 1 ? '22' : depth === 2 ? '18' : depth === 3 ? '12' : '0d';
+      const sa = depth === 1 ? ''   : depth === 2 ? 'cc' : depth === 3 ? '99' : '66';
+
+      const g = E('g', {}, rootG);
+      const bg = E('rect', { x: x - w / 2, y: y - h / 2, width: w, height: h,
+        rx: depth === 1 ? 5 : 3,
+        fill:   p0 ? p0 + '22' : col + fa,
+        stroke: p0 || col + sa,
+        'stroke-width': depth === 1 ? 1.5 : 1 }, g);
+      const txt = E('text', { x, y: y + 1, 'text-anchor': 'middle',
+        'dominant-baseline': 'middle',
+        fill: p0 || (depth === 1 ? col : depth === 2 ? col + 'ee' : depth === 3 ? col + 'cc' : col + '99'),
+        'font-size': fs,
+        'font-family': depth === 1 ? 'Bebas Neue,sans-serif' : 'DM Mono,monospace',
+        'letter-spacing': depth === 1 ? '1.5' : '0',
+        'pointer-events': 'none' }, g);
+
+      // Text wrap — never truncate
+      const chars = Math.floor((w - 10) / (fs * 0.58));
+      if (text.length <= chars) {
+        txt.textContent = text;
+      } else {
+        const mid = Math.floor(text.length / 2);
+        let split = text.lastIndexOf(' ', mid + 8);
+        if (split < 4) split = text.indexOf(' ', mid - 8);
+        if (split < 1) split = chars;
+        txt.textContent = '';
+        const t1 = document.createElementNS(NS, 'tspan');
+        t1.setAttribute('x', x); t1.setAttribute('dy', `-${fs * 0.55}`);
+        t1.textContent = text.slice(0, split).trim(); txt.appendChild(t1);
+        const t2 = document.createElementNS(NS, 'tspan');
+        t2.setAttribute('x', x); t2.setAttribute('dy', fs * 1.1);
+        t2.textContent = text.slice(split).trim(); txt.appendChild(t2);
+        bg.setAttribute('height', h + fs + 2);
+        bg.setAttribute('y', y - (h + fs + 2) / 2);
+      }
+
+      if (hv)                E('circle', { cx: x + w / 2 - 5, cy: y - h / 2 + 5, r: 3,   fill: '#ff6b35' }, g);
+      if (STATE.notes[key]) E('circle', { cx: x + w / 2 - 5, cy: y + h / 2 - 5, r: 2.5, fill: '#a78bfa' }, g);
+
+      reg[key] = { bg, txt, key, col, depth, hv, nd, st };
+      g.style.cursor = 'pointer';
+
+      g.addEventListener('click', e => {
+        e.stopPropagation();
+        setSelectedNode(key, text, st);
+        if (hasK) {
+          toggleExpanded(key);
+          render();
+        } else {
+          const secs = window.SECTIONS || SECTIONS;
+          let si = 0;
+          secs.forEach((s, i) => { if (s.title === st) si = i; });
+          buildPopup(document.getElementById('cmPopup'), nd, st,
+            (window.COLORS || COLORS)[si % (window.COLORS || COLORS).length]);
+        }
       });
-      applyT();
-      wrap.addEventListener('mousedown',e=>{panning=true;panX=e.clientX;panY=e.clientY;});
-      window.addEventListener('mousemove',e=>{if(!panning)return;tx+=e.clientX-panX;ty+=e.clientY-panY;panX=e.clientX;panY=e.clientY;applyT();});
-      window.addEventListener('mouseup',()=>{panning=false;});
-      wrap.addEventListener('wheel',e=>{e.preventDefault();const r=wrap.getBoundingClientRect(),mx=e.clientX-r.left,my=e.clientY-r.top,f=e.deltaY>0?0.88:1.13,ns=Math.min(Math.max(sc*f,0.1),5);tx=mx-(mx-tx)*(ns/sc);ty=my-(my-ty)*(ns/sc);sc=ns;applyT();},{passive:false});
-      document.getElementById('cmZoomIn').addEventListener('click',()=>{sc=Math.min(sc*1.2,5);applyT();});
-      document.getElementById('cmZoomOut').addEventListener('click',()=>{sc=Math.max(sc*0.83,0.1);applyT();});
-      document.getElementById('cmReset').addEventListener('click',()=>{tx=0;ty=0;sc=0.72;applyT();});
-      document.getElementById('cmCollapseAll').addEventListener('click',()=>{EXPANDED.clear();window.cmSyncExpanded();window.g3dSyncExpanded&&window.g3dSyncExpanded();});
-      document.getElementById('cmExpandAll').addEventListener('click',()=>{
-        const addAll=(nd,st)=>{const k=makeKey(st,nd.t);if(nd.c&&nd.c.length){EXPANDED.add(k);nd.c.forEach(c=>addAll(c,st));}};
-        SECTIONS.forEach(s=>{EXPANDED.add(makeKey(s.title,s.title));s.nodes.forEach(n=>addAll(n,s.title));});
-        window.cmSyncExpanded();window.g3dSyncExpanded&&window.g3dSyncExpanded();
+
+      g.addEventListener('mouseenter', () => {
+        bg.setAttribute('fill', depth === 1 ? col + '33' : '#1e2535');
+        bg.setAttribute('stroke', col);
+        txt.setAttribute('fill', '#dde1ed');
       });
-      document.querySelectorAll('.cm-filter').forEach(t=>{t.addEventListener('click',function(){document.querySelectorAll('.cm-filter').forEach(x=>x.classList.remove('active'));this.classList.add('active');const f=this.dataset.filter;Object.values(reg).forEach(r=>{const p=STATE.progress[r.key]||'none',show=f==='all'||(f==='drilling'&&p==='drilling')||(f==='learned'&&p==='learned');r.bg.style.opacity=show?'1':'0.12';r.txt.style.opacity=show?'1':'0.12';});});});
-      document.getElementById('cmSearch').addEventListener('input',function(){const q=this.value.toLowerCase();Object.values(reg).forEach(r=>{const show=!q||r.nd.t.toLowerCase().includes(q);r.bg.style.opacity=show?'1':'0.1';r.txt.style.opacity=show?'1':'0.1';});});
-    } else { window.cmSyncExpanded(); window.cmRefreshAll(); }
+      g.addEventListener('mouseleave', () => {
+        const r2 = reg[key]; if (!r2) return;
+        const pp = pc(key);
+        const fa2 = depth === 1 ? '22' : depth === 2 ? '18' : depth === 3 ? '12' : '0d';
+        const sa2 = depth === 1 ? ''   : depth === 2 ? 'cc' : depth === 3 ? '99' : '66';
+        bg.setAttribute('fill',   pp ? pp + '22' : col + fa2);
+        bg.setAttribute('stroke', pp || col + sa2);
+        txt.setAttribute('fill',  pp || (depth === 1 ? col : depth === 2 ? col + 'ee' : depth === 3 ? col + 'cc' : col + '99'));
+      });
+    });
+
+    applyT();
+  }
+
+  // Public API consumed by other tabs / state changes
+  window.cmSyncExpanded  = () => render();
+  window.cmRefreshNodes  = () => {
+    Object.values(reg).forEach(r => {
+      const p0 = pc(r.key), col = r.col, d = r.depth;
+      const fa = d === 1 ? '22' : d === 2 ? '18' : d === 3 ? '12' : '0d';
+      const sa = d === 1 ? ''   : d === 2 ? 'cc' : d === 3 ? '99' : '66';
+      r.bg.setAttribute('fill',   p0 ? p0 + '22' : col + fa);
+      r.bg.setAttribute('stroke', p0 || col + sa);
+      r.txt.setAttribute('fill',  p0 || (d === 1 ? col : d === 2 ? col + 'ee' : d === 3 ? col + 'cc' : col + '99'));
+    });
+  };
+  window.cmRefreshAll = window.cmRefreshNodes;
+
+  return function () {
+    const wrap = document.getElementById('cmCanvas');
+    W = wrap.clientWidth; H = wrap.clientHeight;
+    if (!W || !H) { setTimeout(initCustomMap, 50); return; }
+
+    if (!initialized) {
+      initialized = true;
+      svg = document.getElementById('cmSvg');
+      svg.setAttribute('width', W); svg.setAttribute('height', H);
+      svg.style.cssText = `width:${W}px;height:${H}px;`;
+      rootG = document.createElementNS(NS, 'g');
+      rootG.id = 'cmRoot';
+      svg.appendChild(rootG);
+      tx = 0; ty = 0; sc = 0.55;
+
+      // Pan
+      wrap.addEventListener('mousedown', e => { panning = true; panX = e.clientX; panY = e.clientY; });
+      window.addEventListener('mousemove', e => {
+        if (!panning) return;
+        tx += e.clientX - panX; ty += e.clientY - panY;
+        panX = e.clientX; panY = e.clientY; applyT();
+      });
+      window.addEventListener('mouseup', () => { panning = false; });
+
+      // Zoom
+      wrap.addEventListener('wheel', e => {
+        e.preventDefault();
+        const r = wrap.getBoundingClientRect();
+        const mx = e.clientX - r.left, my = e.clientY - r.top;
+        const f = e.deltaY > 0 ? 0.88 : 1.13;
+        const ns = Math.min(Math.max(sc * f, 0.05), 5);
+        tx = mx - (mx - tx) * (ns / sc); ty = my - (my - ty) * (ns / sc);
+        sc = ns; applyT();
+      }, { passive: false });
+
+      document.getElementById('cmZoomIn').addEventListener('click',  () => { sc = Math.min(sc * 1.2, 5);   applyT(); });
+      document.getElementById('cmZoomOut').addEventListener('click', () => { sc = Math.max(sc * 0.83, 0.05); applyT(); });
+      document.getElementById('cmReset').addEventListener('click',   () => { tx = 0; ty = 0; sc = 0.55; applyT(); });
+
+      // Collapse / Expand all
+      document.getElementById('cmCollapseAll').addEventListener('click', () => {
+        EXPANDED.clear(); render();
+        window.g3dSyncExpanded && window.g3dSyncExpanded();
+        window.refSyncExpanded && window.refSyncExpanded();
+      });
+      document.getElementById('cmExpandAll').addEventListener('click', () => {
+        const addAll = (nd, st) => {
+          const k = makeKey(st, nd.t);
+          if (nd.c && nd.c.length) { EXPANDED.add(k); nd.c.forEach(c => addAll(c, st)); }
+        };
+        (window.SECTIONS || SECTIONS).forEach(s => {
+          EXPANDED.add(makeKey(s.title, s.title));
+          s.nodes.forEach(n => addAll(n, s.title));
+        });
+        render();
+        window.g3dSyncExpanded && window.g3dSyncExpanded();
+        window.refSyncExpanded && window.refSyncExpanded();
+      });
+
+      // Filter
+      document.querySelectorAll('.cm-filter').forEach(t => {
+        t.addEventListener('click', function () {
+          document.querySelectorAll('.cm-filter').forEach(x => x.classList.remove('active'));
+          this.classList.add('active');
+          const f = this.dataset.filter;
+          Object.values(reg).forEach(r => {
+            const p = STATE.progress[r.key] || 'none';
+            const show = f === 'all' || (f === 'drilling' && p === 'drilling') || (f === 'learned' && p === 'learned');
+            r.bg.style.opacity = show ? '1' : '0.12';
+            r.txt.style.opacity = show ? '1' : '0.12';
+          });
+        });
+      });
+
+      // Search
+      document.getElementById('cmSearch').addEventListener('input', function () {
+        const q = this.value.toLowerCase();
+        Object.values(reg).forEach(r => {
+          const show = !q || r.nd.t.toLowerCase().includes(q);
+          r.bg.style.opacity  = show ? '1' : '0.1';
+          r.txt.style.opacity = show ? '1' : '0.1';
+        });
+      });
+
+      // Touch pan + pinch zoom
+      let lastDist = 0;
+      wrap.addEventListener('touchstart', e => {
+        if (e.touches.length === 1) { panning = true; panX = e.touches[0].clientX; panY = e.touches[0].clientY; }
+        else if (e.touches.length === 2)
+          lastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+        e.preventDefault();
+      }, { passive: false });
+      wrap.addEventListener('touchmove', e => {
+        if (e.touches.length === 1 && panning) {
+          tx += e.touches[0].clientX - panX; ty += e.touches[0].clientY - panY;
+          panX = e.touches[0].clientX; panY = e.touches[0].clientY; applyT();
+        } else if (e.touches.length === 2) {
+          const d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+          sc = Math.min(Math.max(sc * (d / lastDist), 0.05), 5); lastDist = d; applyT();
+        }
+        e.preventDefault();
+      }, { passive: false });
+      wrap.addEventListener('touchend', () => { panning = false; });
+    }
+
+    render();
   };
 })();
 
@@ -1466,6 +1976,66 @@ window.initGraph3D = (function() {
 loadState();
 buildSections();
 updateStats();
+
+// ══ MOBILE FILTER DRAWERS ══════════════════════════════════════════════════
+(function setupMobileFilters() {
+  function setupDrawer(toggleId, drawerId, desktopTabsSel) {
+    const toggle = document.getElementById(toggleId);
+    const drawer = document.getElementById(drawerId);
+    if (!toggle || !drawer) return;
+    toggle.addEventListener('click', () => {
+      const open = drawer.classList.toggle('open');
+      toggle.classList.toggle('active', open);
+    });
+    drawer.querySelectorAll('[data-drawer]').forEach(btn => {
+      if (btn.classList.contains('tab')) {
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter;
+          document.querySelectorAll(desktopTabsSel).forEach(b =>
+            b.classList.toggle('active', b.dataset.filter === filter));
+          drawer.querySelectorAll('.tab').forEach(b =>
+            b.classList.toggle('active', b.dataset.filter === filter));
+          drawer.classList.remove('open');
+          toggle.classList.remove('active');
+          if (toggleId === 'refFilterToggle') {
+            applyRefFilter(filter);
+          } else {
+            const match = document.querySelector(desktopTabsSel + '[data-filter="' + filter + '"]');
+            if (match) match.click();
+          }
+        });
+      }
+    });
+    document.addEventListener('click', (e) => {
+      if (!toggle.contains(e.target) && !drawer.contains(e.target)) {
+        drawer.classList.remove('open');
+        toggle.classList.remove('active');
+      }
+    });
+  }
+  setupDrawer('refFilterToggle', 'refFilterDrawer', '#referenceView .filter-tabs .tab');
+  setupDrawer('cmFilterToggle',  'cmFilterDrawer',  '#customMapView .filter-tabs .tab');
+
+  ['refCollapseAllMob','refExpandAllMob','cmCollapseAllMob','cmExpandAllMob'].forEach(id => {
+    const mirror = {'refCollapseAllMob':'refCollapseAll','refExpandAllMob':'refExpandAll',
+                    'cmCollapseAllMob':'cmCollapseAll','cmExpandAllMob':'cmExpandAll'};
+    const btn = document.getElementById(id);
+    if (btn) btn.addEventListener('click', () => document.getElementById(mirror[id]).click());
+  });
+})();
+
+// ══ REFERENCE: EXPAND ALL ══════════════════════════════════════════════════
+document.getElementById('refExpandAll').addEventListener('click', () => {
+  document.querySelectorAll('#sections .tree-item').forEach(li => {
+    li.classList.remove('collapsed');
+    const t = li.querySelector(':scope > .node > .node-toggle');
+    if (t && !t.classList.contains('leaf')) t.textContent = '▾';
+  });
+  document.querySelectorAll('#sections .section').forEach(s => s.classList.remove('collapsed'));
+});
+
+
+
 </script>
 </body>
 </html>
